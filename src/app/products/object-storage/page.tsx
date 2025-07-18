@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, Archive, Globe, Shield, UploadCloud, Link2, Server, FolderArchive, Film, ChevronRight } from "lucide-react";
+import { Archive, Globe, Shield, UploadCloud, Server, FolderArchive, Film, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -170,5 +170,3 @@ export default function ObjectStoragePage() {
     </div>
   );
 }
-
-    

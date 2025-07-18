@@ -20,7 +20,7 @@ const OptimizeTestimonialsInputSchema = z.object({
     .describe('A description of the user profile'),
   availableTestimonials: z
     .array(z.string())
-    .describe('An array of available customer testimonials.'),
+    .describe('An array of available customer testimonials, each as a JSON string.'),
 });
 export type OptimizeTestimonialsInput = z.infer<
   typeof OptimizeTestimonialsInputSchema
@@ -30,7 +30,7 @@ const OptimizeTestimonialsOutputSchema = z.object({
   selectedTestimonials: z
     .array(z.string())
     .describe(
-      'An array of the most relevant customer testimonials for the user.'
+      'An array of the most relevant customer testimonials for the user. Each element must be one of the exact JSON strings from the input.'
     ),
 });
 export type OptimizeTestimonialsOutput = z.infer<
@@ -46,19 +46,24 @@ export async function optimizeTestimonials(
 const prompt = ai.definePrompt({
   name: 'optimizeTestimonialsPrompt',
   input: {schema: OptimizeTestimonialsInputSchema},
-  output: {schema: OptimizeTestimonialsOutputSchema},
+  output: {
+    format: 'json',
+    schema: OptimizeTestimonialsOutputSchema,
+  },
   prompt: `You are an AI expert in selecting the most relevant customer testimonials for a user based on their location and profile.
 
 Given the user's location: {{{userLocation}}},
-profile: {{{userProfile}}},
-and the following available testimonials:
+and profile: {{{userProfile}}}.
 
-{{#each availableTestimonials}} - {{{this}}}
+Here is a list of available testimonials, provided as an array of JSON strings:
+{{#each availableTestimonials}}
+- {{{this}}}
 {{/each}}
 
-Select the testimonials that would be most compelling and relevant to the user.
-Return only the selected testimonials in an array.
-`,
+Your task is to select up to 3 testimonials that are most compelling and relevant to this specific user.
+You MUST return a JSON object with a single key "selectedTestimonials", which is an array of strings.
+Each string in the array MUST be one of the *exact*, unmodified JSON strings from the provided list.
+Do not add any text or explanations, only the JSON output.`,
 });
 
 const optimizeTestimonialsFlow = ai.defineFlow(

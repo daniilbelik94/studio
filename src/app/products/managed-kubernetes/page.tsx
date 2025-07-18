@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, GitBranch, Layers, Puzzle, Scaling, Rocket, CheckCircle, ChevronRight } from "lucide-react";
+import { GitBranch, Layers, Puzzle, Scaling, CheckCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -158,5 +158,3 @@ export default function ManagedKubernetesPage() {
     </div>
   );
 }
-
-    

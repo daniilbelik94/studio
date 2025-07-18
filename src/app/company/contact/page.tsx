@@ -1,7 +1,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { Building, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
@@ -50,6 +50,7 @@ export default function ContactPage() {
                     We'd love to hear from you. Whether you have a question about features, pricing, or anything else, our team is ready to answer all your questions.
                     </p>
                 </div>
+                 <Image src="https://placehold.co/600x400.png" width={600} height={400} alt="Contact Us" data-ai-hint="communication contact" className="rounded-lg shadow-lg" />
                 <div className="space-y-4">
                     <div className="flex items-center gap-4">
                         <Mail className="h-6 w-6 text-primary" />
@@ -65,7 +66,8 @@ export default function ContactPage() {
                     </div>
                 </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 rounded-lg border bg-card p-8 shadow-lg">
+                 <h2 className="text-2xl font-bold">Send us a message</h2>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="grid gap-2">
@@ -95,5 +97,3 @@ export default function ContactPage() {
     </div>
   );
 }
-
-    

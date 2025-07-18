@@ -18,6 +18,8 @@ const availableTestimonials = [
   '{"quote": "The developer experience is fantastic. Their API is well-documented, and the CLI tools make managing our infrastructure in the Americas a breeze.", "author": "DevOps Manager, CodeCrafters", "location_relevance": "Americas"}'
 ];
 
+const defaultTestimonials = availableTestimonials.slice(0, 3).map(t => JSON.parse(t));
+
 const userProfile = "A marketing manager at a mid-sized e-commerce company in North America looking for scalable and reliable infrastructure.";
 
 type Testimonial = {
@@ -44,14 +46,26 @@ export function TestimonialsSection() {
         });
 
         // Parse the string results from AI into structured objects
-        const parsedTestimonials = result.selectedTestimonials.map(t => JSON.parse(t) as Testimonial);
+        const parsedTestimonials = result.selectedTestimonials.map(t => {
+            try {
+                return JSON.parse(t) as Testimonial;
+            } catch (e) {
+                console.warn("Failed to parse testimonial JSON:", t, e);
+                return null; // Return null for invalid JSON
+            }
+        }).filter(Boolean) as Testimonial[]; // Filter out nulls
         
-        // Ensure we don't show more than 3 testimonials
-        setTestimonials(parsedTestimonials.slice(0, 3));
+        if(parsedTestimonials.length > 0){
+             setTestimonials(parsedTestimonials.slice(0, 3));
+        } else {
+            // Fallback if AI returns empty or all invalid data
+            setTestimonials(defaultTestimonials);
+        }
+
       } catch (error) {
         console.error("Failed to fetch optimized testimonials:", error);
         // Fallback to a default set on error
-        setTestimonials(availableTestimonials.slice(0, 3).map(t => JSON.parse(t)));
+        setTestimonials(defaultTestimonials);
       } finally {
         setLoading(false);
       }

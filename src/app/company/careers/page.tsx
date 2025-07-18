@@ -1,7 +1,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { Building, MapPin, Briefcase } from "lucide-react";
+import { MapPin, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -83,8 +83,8 @@ export default function CareersPage() {
                             <CardHeader>
                                 <CardTitle>{job.title}</CardTitle>
                                 <CardDescription className="flex items-center gap-4 pt-2">
-                                    <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {job.location}</span>
-                                    <span className="flex items-center gap-1"><Briefcase className="h-4 w-4" /> {job.department}</span>
+                                    <span className="flex items-center gap-1"><MapPin className="h-4 w-4 text-primary" /> {job.location}</span>
+                                    <span className="flex items-center gap-1"><Briefcase className="h-4 w-4 text-primary" /> {job.department}</span>
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -109,5 +109,3 @@ export default function CareersPage() {
     </div>
   );
 }
-
-    

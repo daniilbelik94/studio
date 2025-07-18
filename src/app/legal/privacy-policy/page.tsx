@@ -38,6 +38,7 @@ export default function PrivacyPolicyPage() {
               </BreadcrumbList>
           </Breadcrumb>
           <article className="prose prose-stone dark:prose-invert max-w-none">
+            <Image src="https://placehold.co/800x300.png" width={800} height={300} data-ai-hint="privacy lock" alt="Privacy Policy" className="mb-8 rounded-lg shadow-md w-full object-cover" />
             <h1>Privacy Policy</h1>
             <p className="text-muted-foreground">Last updated: July 26, 2024</p>
             
@@ -80,5 +81,3 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
-
-    

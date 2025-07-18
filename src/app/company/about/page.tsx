@@ -1,7 +1,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { Building, Users, Target, Rocket } from "lucide-react";
+import { Users, Target, Rocket } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -115,5 +115,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-    

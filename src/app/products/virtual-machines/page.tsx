@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Building, Cpu, HardDrive, Zap, Gauge, Globe, Shield, ChevronRight } from "lucide-react";
+import { Cpu, HardDrive, Globe, Shield, Zap, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Image from "next/image";
@@ -144,7 +144,7 @@ export default function VirtualMachinesPage() {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
                 {plans.map(plan => (
-                    <Card key={plan.name} className="flex flex-col shadow-lg hover:shadow-2xl transition-shadow border-primary/20 border-2">
+                    <Card key={plan.name} className="flex flex-col shadow-lg hover:shadow-2xl transition-shadow border-primary/20 border-2 bg-card/50">
                         <CardHeader className="bg-muted/50">
                             <CardTitle className="text-2xl">{plan.name}</CardTitle>
                             <CardDescription>{plan.description}</CardDescription>
@@ -184,5 +184,3 @@ export default function VirtualMachinesPage() {
     </div>
   );
 }
-
-    

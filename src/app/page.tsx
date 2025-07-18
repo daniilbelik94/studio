@@ -338,7 +338,7 @@ export default function Home() {
                 <SheetContent side="left">
                     <SheetHeader>
                          <Link className="flex items-center justify-center" href="/" onClick={() => setMenuOpen(false)}>
-                            <Image src="/logo.png" width="32" height="32" alt="Enterprise Cloud Logo" />
+                            <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
                             <span className="ml-2 font-bold">Enterprise Cloud</span>
                          </Link>
                     </SheetHeader>
@@ -394,7 +394,7 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
+              <h2 className="text-sm font-semibold tracking-wide uppercase text-foreground/80">Trusted by the world's leading companies</h2>
               <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20 mt-8">
                 {trustedLogos.map((logo) => (
                   <div key={logo.name} className="flex items-center justify-center gap-4 group" title={logo.name}>

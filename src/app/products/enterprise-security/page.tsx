@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, ShieldCheck, Siren, Bot, FileLock, Network, KeyRound, ChevronRight } from "lucide-react";
+import { ShieldCheck, Siren, Bot, FileLock, Network, KeyRound, Building, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -174,5 +174,3 @@ export default function EnterpriseSecurityPage() {
     </div>
   );
 }
-
-    
