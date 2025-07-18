@@ -1,9 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, ShieldCheck, Siren, Bot, FileLock, Network } from "lucide-react";
+import { Building, ShieldCheck, Siren, Bot, FileLock, Network, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const featureCards = [
     {
@@ -28,9 +29,27 @@ const featureCards = [
     },
 ];
 
+const benefitItems = [
+    {
+        icon: <KeyRound className="h-8 w-8 text-accent" />,
+        title: "Reduce Risk",
+        description: "Proactively identify and mitigate threats before they impact your business operations, ensuring continuity and protecting your reputation."
+    },
+    {
+        icon: <Network className="h-8 w-8 text-accent" />,
+        title: "Ensure Compliance",
+        description: "Simplify your audit processes and meet stringent regulatory requirements with our certified security infrastructure and detailed reporting."
+    },
+     {
+        icon: <Building className="h-8 w-8 text-accent" />,
+        title: "Build Customer Trust",
+        description: "Demonstrate your commitment to security and data protection, building confidence with your users and enterprise customers."
+    }
+];
+
 export default function EnterpriseSecurityPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
               <Building className="h-6 w-6 text-primary" />
@@ -50,13 +69,16 @@ export default function EnterpriseSecurityPage() {
               Enterprise Security
             </Link>
           </nav>
-           <Button asChild className="ml-auto">
-             <Link href="/company/contact">Contact Sales</Link>
-           </Button>
+           <div className="ml-auto flex items-center gap-2">
+             <Button asChild className="hidden md:flex">
+               <Link href="/company/contact">Contact Sales</Link>
+             </Button>
+             <ThemeToggle />
+           </div>
       </header>
       <main className="flex-1">
         <div className="container py-12 px-4 md:px-6">
-          <Breadcrumb className="mb-8">
+          <Breadcrumb className="mb-8 hidden md:flex">
               <BreadcrumbList>
                   <BreadcrumbItem>
                       <BreadcrumbLink asChild>
@@ -76,15 +98,16 @@ export default function EnterpriseSecurityPage() {
 
           <section className="space-y-6">
             <div className="text-center">
+                <p className="text-accent font-semibold">Comprehensive Protection</p>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Enterprise Security</h1>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Secure your infrastructure from end to end with our comprehensive suite of managed security services.
+                Secure your infrastructure from end to end with our comprehensive suite of managed security services. We provide the tools and expertise to protect your most critical applications and data against evolving threats.
                 </p>
             </div>
 
              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -95,13 +118,39 @@ export default function EnterpriseSecurityPage() {
                     </Card>
                 ))}
             </div>
-
-             <div className="text-center pt-8">
-                 <Button asChild size="lg">
-                    <Link href="/company/contact">Secure Your Infrastructure</Link>
-                 </Button>
-             </div>
           </section>
+
+          <section className="py-12 md:py-24">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                  <div className="space-y-4">
+                      <h2 className="text-3xl font-bold">Your Trusted Security Partner</h2>
+                      <p className="text-muted-foreground">
+                          In today's digital landscape, security is not just a feature; it's a fundamental requirement. Our enterprise security solutions are designed to provide multi-layered defense, integrating seamlessly with your infrastructure. We combine automated systems with a 24/7 Security Operations Center (SOC) to ensure your business is protected around the clock, allowing you to innovate with confidence.
+                      </p>
+                  </div>
+                  <div className="grid gap-6">
+                      {benefitItems.map((item) => (
+                           <div key={item.title} className="flex items-start gap-4">
+                               {item.icon}
+                               <div>
+                                   <h3 className="text-lg font-bold">{item.title}</h3>
+                                   <p className="text-muted-foreground">{item.description}</p>
+                               </div>
+                           </div>
+                      ))}
+                  </div>
+              </div>
+          </section>
+
+          <section className="text-center py-12 bg-primary/10 rounded-lg">
+                <h2 className="text-3xl font-bold">Ready to Secure Your Platform?</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Talk to our security experts today to get a personalized assessment and quote for your business needs.
+                </p>
+                 <Button asChild size="lg" className="mt-6 bg-accent hover:bg-accent/90">
+                    <Link href="/company/contact">Request a Security Consultation</Link>
+                 </Button>
+            </section>
         </div>
       </main>
     </div>

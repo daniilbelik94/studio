@@ -1,9 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, Cpu, GitBranch, Layers, Puzzle, Scaling } from "lucide-react";
+import { Building, Cpu, GitBranch, Layers, Puzzle, Scaling, Rocket, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const featureCards = [
     {
@@ -28,9 +29,16 @@ const featureCards = [
     },
 ];
 
+const useCases = [
+    "Microservices architecture",
+    "CI/CD and DevOps automation",
+    "Stateful applications",
+    "Big data processing"
+];
+
 export default function ManagedKubernetesPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
               <Building className="h-6 w-6 text-primary" />
@@ -46,17 +54,20 @@ export default function ManagedKubernetesPage() {
              <Link className="font-bold text-foreground transition-colors hover:text-foreground" href="/products/managed-kubernetes">
               Managed Kubernetes
             </Link>
-             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/documentation">
-              Documentation
+             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/enterprise-security">
+              Enterprise Security
             </Link>
           </nav>
-           <Button asChild className="ml-auto">
-             <Link href="/company/contact">Contact Sales</Link>
-           </Button>
+            <div className="ml-auto flex items-center gap-2">
+             <Button asChild className="hidden md:flex">
+               <Link href="/company/contact">Contact Sales</Link>
+             </Button>
+             <ThemeToggle />
+           </div>
       </header>
       <main className="flex-1">
         <div className="container py-12 px-4 md:px-6">
-          <Breadcrumb className="mb-8">
+          <Breadcrumb className="mb-8 hidden md:flex">
               <BreadcrumbList>
                   <BreadcrumbItem>
                       <BreadcrumbLink asChild>
@@ -75,15 +86,16 @@ export default function ManagedKubernetesPage() {
           </Breadcrumb>
           <section className="space-y-6">
             <div className="text-center">
+                <p className="text-accent font-semibold">Container Orchestration</p>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Managed Kubernetes</h1>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Deploy, manage, and scale your containerized applications effortlessly with our production-ready Kubernetes service.
+                Deploy, manage, and scale your containerized applications effortlessly with our production-ready Kubernetes service. Focus on building great applications, not on infrastructure management.
                 </p>
             </div>
 
              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -94,13 +106,39 @@ export default function ManagedKubernetesPage() {
                     </Card>
                 ))}
             </div>
+          </section>
 
-             <div className="text-center pt-8">
-                 <Button asChild size="lg">
-                    <Link href="/company/contact">Create Your Cluster</Link>
-                 </Button>
+          <section className="py-12 md:py-24">
+             <div className="grid md:grid-cols-2 gap-12 items-center">
+                 <div>
+                     <h2 className="text-3xl font-bold mb-4">Accelerate Your Development Lifecycle</h2>
+                     <p className="text-muted-foreground mb-6">
+                         Our Managed Kubernetes service is designed to remove the operational overhead of running a resilient and scalable container platform. With automated updates, security patching, and a free, highly-available control plane, you can streamline your CI/CD pipelines and ship code faster than ever.
+                     </p>
+                     <ul className="space-y-4">
+                         {useCases.map(useCase => (
+                             <li key={useCase} className="flex items-center gap-3">
+                                 <CheckCircle className="h-6 w-6 text-accent" />
+                                 <span className="text-lg">{useCase}</span>
+                             </li>
+                         ))}
+                     </ul>
+                 </div>
+                 <div className="flex justify-center">
+                     <Rocket className="h-48 w-48 text-primary/20" />
+                 </div>
              </div>
           </section>
+          
+          <section className="text-center py-12 bg-primary/10 rounded-lg">
+                <h2 className="text-3xl font-bold">Start Building on Kubernetes Today</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Create your first cluster in minutes and experience the power of managed Kubernetes.
+                </p>
+                 <Button asChild size="lg" className="mt-6 bg-accent hover:bg-accent/90">
+                    <Link href="/company/contact">Create Your Cluster</Link>
+                 </Button>
+            </section>
         </div>
       </main>
     </div>

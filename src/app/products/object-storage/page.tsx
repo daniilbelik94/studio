@@ -1,9 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, Archive, Globe, Shield, Zap, UploadCloud } from "lucide-react";
+import { Building, Archive, Globe, Shield, Zap, UploadCloud, Link2 } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const featureCards = [
     {
@@ -28,9 +29,24 @@ const featureCards = [
     },
 ];
 
+const benefitItems = [
+    {
+        title: "Static Asset Hosting",
+        description: "Serve images, videos, and other static content for your websites and applications with high performance and low cost."
+    },
+    {
+        title: "Data Backup & Archiving",
+        description: "A durable and cost-effective solution for long-term data retention, disaster recovery, and compliance."
+    },
+     {
+        title: "Big Data & AI",
+        description: "Create massive data lakes to store and analyze large datasets for machine learning and analytics workloads."
+    }
+];
+
 export default function ObjectStoragePage() {
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
               <Building className="h-6 w-6 text-primary" />
@@ -46,17 +62,20 @@ export default function ObjectStoragePage() {
              <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/managed-kubernetes">
               Managed Kubernetes
             </Link>
-             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/documentation">
-              Documentation
+             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/enterprise-security">
+              Enterprise Security
             </Link>
           </nav>
-           <Button asChild className="ml-auto">
-             <Link href="/company/contact">Contact Sales</Link>
-           </Button>
+           <div className="ml-auto flex items-center gap-2">
+             <Button asChild className="hidden md:flex">
+               <Link href="/company/contact">Contact Sales</Link>
+             </Button>
+             <ThemeToggle />
+           </div>
       </header>
       <main className="flex-1">
         <div className="container py-12 px-4 md:px-6">
-          <Breadcrumb className="mb-8">
+          <Breadcrumb className="mb-8 hidden md:flex">
               <BreadcrumbList>
                   <BreadcrumbItem>
                       <BreadcrumbLink asChild>
@@ -75,6 +94,7 @@ export default function ObjectStoragePage() {
           </Breadcrumb>
           <section className="space-y-6">
             <div className="text-center">
+                <p className="text-accent font-semibold">Scalable Data Storage</p>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Object Storage</h1>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                 A simple, durable, and affordable way to store and serve vast amounts of data for applications, backups, and archives.
@@ -83,7 +103,7 @@ export default function ObjectStoragePage() {
 
              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -94,13 +114,33 @@ export default function ObjectStoragePage() {
                     </Card>
                 ))}
             </div>
+          </section>
 
-             <div className="text-center pt-8">
-                 <Button asChild size="lg">
+           <section className="py-12 md:py-24">
+             <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold">Built for a Multitude of Use Cases</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">Our Object Storage is flexible enough to power everything from simple website assets to complex big data pipelines.</p>
+             </div>
+             <div className="grid md:grid-cols-3 gap-8">
+                {benefitItems.map((item) => (
+                    <div key={item.title} className="bg-card p-6 rounded-lg shadow-sm">
+                        <Link2 className="h-8 w-8 text-accent mb-4" />
+                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <p className="text-muted-foreground">{item.description}</p>
+                    </div>
+                ))}
+             </div>
+           </section>
+
+             <section className="text-center py-12 bg-primary/10 rounded-lg">
+                <h2 className="text-3xl font-bold">Start Storing in Seconds</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Create your first storage bucket and start uploading data with our simple-to-use control panel or S3-compatible tools.
+                </p>
+                 <Button asChild size="lg" className="mt-6 bg-accent hover:bg-accent/90">
                     <Link href="/company/contact">Start Storing Today</Link>
                  </Button>
-             </div>
-          </section>
+            </section>
         </div>
       </main>
     </div>
