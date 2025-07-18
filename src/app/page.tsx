@@ -1,4 +1,5 @@
 
+
 'use client'
 
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock } from "lucide-react";
 import Image from "next/image";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
 
 const products = [
   {
@@ -17,26 +21,49 @@ const products = [
     title: "Virtual Machines",
     description: "Scalable compute instances to power your applications, from small workloads to large-scale enterprise systems.",
     pricing: "Starting at $25/mo",
+    features: ["2 vCPU", "4 GB RAM", "80 GB SSD", "4 TB Transfer"],
   },
   {
     icon: <Database className="h-8 w-8 text-primary" />,
     title: "Object Storage",
     description: "Durable, secure, and highly available object storage for your data, backups, and media content.",
     pricing: "Starting at $0.02/GB",
+    features: ["1 TB Storage", "5 TB Transfer", "Global CDN", "S3-Compatible API"],
   },
   {
     icon: <Cpu className="h-8 w-8 text-primary" />,
     title: "Managed Kubernetes",
     description: "Deploy, manage, and scale containerized applications with our certified Kubernetes service.",
     pricing: "Starting at $70/mo",
+    features: ["Free Control Plane", "Auto Scaling", "High-Availability", "Developer Tools"],
   },
   {
     icon: <Shield className="h-8 w-8 text-primary" />,
     title: "Enterprise Security",
     description: "Protect your infrastructure with advanced threat detection, DDoS mitigation, and web application firewalls.",
     pricing: "Contact Sales",
+    features: ["DDoS Mitigation", "WAF", "Threat Intelligence", "24/7 Monitoring"],
   },
 ];
+
+const whyUsItems = [
+  {
+    icon: <Globe className="h-10 w-10 text-primary" />,
+    title: "Global Infrastructure",
+    description: "Deploy your applications closer to your users with our worldwide network of data centers for lower latency and improved performance."
+  },
+  {
+    icon: <LifeBuoy className="h-10 w-10 text-primary" />,
+    title: "24/7 Expert Support",
+    description: "Our team of certified cloud engineers is available around the clock to help you with any issue, from migration to optimization."
+  },
+  {
+    icon: <Lock className="h-10 w-10 text-primary" />,
+    title: "Enterprise-Grade Security",
+    description: "We protect your most critical workloads with multi-layered security, compliance certifications, and proactive threat monitoring."
+  }
+];
+
 
 const solutions = [
   {
@@ -63,6 +90,26 @@ const trustedLogos = [
   { name: "Stellar Tech", path: "4" },
   { name: "Pinnacle Group", path: "5" },
 ];
+
+const faqs = [
+  {
+    question: "What kind of support can I expect?",
+    answer: "We offer 24/7/365 expert support via email, phone, and chat. Our premium support plans also include a dedicated account manager and proactive monitoring to ensure your infrastructure is always running optimally."
+  },
+  {
+    question: "How do you handle data security and compliance?",
+    answer: "Security is our top priority. Our platform is compliant with major industry standards like ISO 27001, SOC 2, and GDPR. We provide a suite of security services, including DDoS mitigation, web application firewalls, and regular vulnerability scanning."
+  },
+  {
+    question: "Can I migrate my existing applications to your platform?",
+    answer: "Absolutely. We offer a range of migration tools and services to help you move your applications smoothly and with minimal downtime. Our support team can assist you with planning and executing the migration."
+  },
+  {
+    question: "How does your pricing work?",
+    answer: "Our pricing is transparent and predictable. You can choose to pay as you go or opt for reserved instances for significant discounts. Use our pricing table to estimate your monthly costs, and contact our sales team for custom enterprise quotes."
+  }
+];
+
 
 function ConsultationDialog() {
   return (
@@ -166,6 +213,7 @@ export default function Home() {
           <Button variant="ghost" onClick={() => scrollTo('products')}>Products</Button>
           <Button variant="ghost" onClick={() => scrollTo('solutions')}>Solutions</Button>
           <Button variant="ghost" onClick={() => scrollTo('pricing')}>Pricing</Button>
+          <Button variant="ghost" onClick={() => scrollTo('faq')}>FAQ</Button>
           <ConsultationDialogButton />
         </nav>
       </header>
@@ -246,7 +294,32 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="solutions" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="why-us" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Why Choose Us</div>
+                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">The Enterprise Advantage</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Discover the key benefits that make our platform the right choice for your business.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-start gap-12 sm:grid-cols-3 sm:gap-8 mt-12">
+              {whyUsItems.map((item) => (
+                <div key={item.title} className="grid gap-1 text-center">
+                   <div className="flex justify-center items-center mb-4">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-bold font-headline">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="solutions" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -273,39 +346,50 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
            <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
                     <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Pricing</div>
-                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Transparent Pricing</h2>
+                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Transparent & Predictable Pricing</h2>
                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                        Choose the plan that's right for you.
+                        Choose the right plan for your needs. All plans come with our core security and support features.
                     </p>
                 </div>
               </div>
-               <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-4 mt-12">
-                {products.map((product) => (
-                  <Card key={product.title} className="flex flex-col h-full">
-                    <CardHeader>
-                      <CardTitle className="font-headline">{product.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-1">
-                      <p className="text-4xl font-bold">{product.pricing.startsWith('Contact') ? 'Custom' : product.pricing.split('/')[0]}</p>
-                      <p className="text-sm text-muted-foreground">{product.pricing.startsWith('Contact') ? 'Contact us for a quote' : `/ ${product.pricing.split('/')[1]}`}</p>
-                      <p className="mt-4 text-sm">{product.description}</p>
-                    </CardContent>
-                    <CardFooter>
-                       <ConsultationDialogButton className="w-full" />
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
+              <Card className="mt-12">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[250px]">Product</TableHead>
+                      <TableHead>Specifications</TableHead>
+                      <TableHead className="text-right">Price</TableHead>
+                      <TableHead className="w-[150px]"></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {products.map((product) => (
+                      <TableRow key={product.title}>
+                        <TableCell className="font-medium font-headline">{product.title}</TableCell>
+                        <TableCell>
+                          <ul className="list-disc list-inside text-sm text-muted-foreground">
+                            {product.features.map(feature => <li key={feature}>{feature}</li>)}
+                          </ul>
+                        </TableCell>
+                        <TableCell className="text-right font-semibold">{product.pricing}</TableCell>
+                        <TableCell className="text-right">
+                          <ConsultationDialogButton />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
             </div>
         </section>
 
 
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -316,6 +400,32 @@ export default function Home() {
               </div>
             </div>
             <TestimonialsSection />
+          </div>
+        </section>
+        
+        <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                <div className="space-y-2">
+                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">FAQ</div>
+                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Frequently Asked Questions</h2>
+                    <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        Find answers to common questions about our platform and services.
+                    </p>
+                </div>
+            </div>
+            <div className="mx-auto max-w-3xl w-full mt-12">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-lg font-medium">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-base text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </section>
 
@@ -349,5 +459,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
