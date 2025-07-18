@@ -10,9 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock } from "lucide-react";
+import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock, BookOpen } from "lucide-react";
 import Image from "next/image";
+import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
 
@@ -23,6 +25,7 @@ const products = [
     description: "Scalable compute instances to power your applications, from small workloads to large-scale enterprise systems.",
     pricing: "Starting at $25/mo",
     features: ["2 vCPU", "4 GB RAM", "80 GB SSD", "4 TB Transfer"],
+    details: "Our Virtual Machines offer a robust and flexible environment for any workload. With options for custom CPU, RAM, and storage configurations, you can tailor your instances to your exact needs. Benefit from our global network for low latency, 99.99% uptime SLA, and included DDoS protection. Perfect for web servers, development environments, and backend services.",
   },
   {
     icon: <Database className="h-8 w-8 text-primary" />,
@@ -30,6 +33,7 @@ const products = [
     description: "Durable, secure, and highly available object storage for your data, backups, and media content.",
     pricing: "Starting at $0.02/GB",
     features: ["1 TB Storage", "5 TB Transfer", "Global CDN", "S3-Compatible API"],
+    details: "Our S3-compatible Object Storage is designed for durability and infinite scalability. Store and retrieve any amount of data, from anywhere on the web. It's perfect for backups, archives, big data lakes, and serving static assets for your web applications. Integrated with our global CDN, your content is delivered fast, no matter where your users are."
   },
   {
     icon: <Cpu className="h-8 w-8 text-primary" />,
@@ -37,6 +41,7 @@ const products = [
     description: "Deploy, manage, and scale containerized applications with our certified Kubernetes service.",
     pricing: "Starting at $70/mo",
     features: ["Free Control Plane", "Auto Scaling", "High-Availability", "Developer Tools"],
+    details: "Focus on your applications, not on managing infrastructure. Our Managed Kubernetes service provides a certified, production-ready environment with a free control plane, automated scaling, and self-healing capabilities. Integrated with our container registry and developer tools, you can streamline your CI/CD pipeline and deploy with confidence."
   },
   {
     icon: <Shield className="h-8 w-8 text-primary" />,
@@ -44,6 +49,7 @@ const products = [
     description: "Protect your infrastructure with advanced threat detection, DDoS mitigation, and web application firewalls.",
     pricing: "Contact Sales",
     features: ["DDoS Mitigation", "WAF", "Threat Intelligence", "24/7 Monitoring"],
+    details: "Secure your critical workloads with our comprehensive security suite. We provide multi-layered protection, including a powerful Web Application Firewall (WAF), proactive DDoS mitigation, and real-time threat intelligence. Our security operations center (SOC) monitors your environment 24/7 to detect and respond to threats before they impact your business."
   },
 ];
 
@@ -84,6 +90,27 @@ const solutions = [
   },
 ];
 
+const caseStudies = [
+    {
+        company: "Quantum Corp",
+        title: "Quantum Corp Scales E-commerce Platform by 500% for Black Friday",
+        description: "By leveraging our auto-scaling Virtual Machines and Managed Kubernetes, Quantum Corp successfully handled record-breaking traffic without any downtime, ensuring a smooth experience for their customers and maximizing sales.",
+        image: "https://placehold.co/600x400.png"
+    },
+    {
+        company: "Stellar Tech",
+        title: "Stellar Tech Achieves Global Low-Latency for their SaaS Application",
+        description: "Using our global Object Storage with integrated CDN, Stellar Tech was able to serve their application assets from edge locations worldwide, reducing page load times by 60% and significantly improving user satisfaction.",
+        image: "https://placehold.co/600x400.png"
+    },
+    {
+        company: "Innovate Inc",
+        title: "Innovate Inc Secures Financial Data with Enterprise-Grade Security",
+        description: "With our comprehensive security suite, including WAF and DDoS mitigation, Innovate Inc protects its sensitive financial data, meets compliance requirements, and builds trust with its enterprise customers.",
+        image: "https://placehold.co/600x400.png"
+    }
+];
+
 const trustedLogos = [
   { name: "Innovate Inc", path: "1" },
   { name: "Quantum Corp", path: "2" },
@@ -111,14 +138,11 @@ const faqs = [
   }
 ];
 
-
-function ConsultationDialog() {
+function ConsultationDialog({ triggerButton }: { triggerButton: React.ReactNode }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg" variant="default" className="shadow-lg hover:shadow-primary/40 transition-shadow">
-          Request a Consultation
-        </Button>
+        {triggerButton}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -153,45 +177,37 @@ function ConsultationDialog() {
   )
 }
 
-function ConsultationDialogButton({className}: {className?: string}) {
-   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="default" className={cn("shadow-md hover:shadow-primary/30 transition-shadow", className)}>Request a Consultation</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Request a Consultation</DialogTitle>
-          <DialogDescription>
-            Fill out the form below and one of our experts will get back to you shortly.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" placeholder="John Doe" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input id="email" type="email" placeholder="john.doe@example.com" className="col-span-3" />
-          </div>
-           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="message" className="text-right">
-              Message
-            </Label>
-            <Textarea id="message" placeholder="How can we help you?" className="col-span-3" />
-          </div>
-        </div>
-        <Button type="submit" variant="default" className="w-full">Submit Request</Button>
-      </DialogContent>
-    </Dialog>
-   )
+function ProductPricingRow({ product }: { product: (typeof products)[0] }) {
+    return (
+        <TableRow className="hover:bg-primary/5">
+            <TableCell className="font-bold text-lg">{product.title}</TableCell>
+            <TableCell>
+                <ul className="list-disc list-inside text-sm text-muted-foreground">
+                    {product.features.map(feature => <li key={feature}>{feature}</li>)}
+                </ul>
+            </TableCell>
+            <TableCell className="text-right font-semibold text-lg">{product.pricing}</TableCell>
+            <TableCell className="text-right">
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button variant="outline">View Details</Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">
+                        <div className="grid gap-4">
+                            <div className="space-y-2">
+                                <h4 className="font-medium leading-none">{product.title}</h4>
+                                <p className="text-sm text-muted-foreground">
+                                    {product.details}
+                                </p>
+                            </div>
+                            <ConsultationDialog triggerButton={<Button className="w-full">Request Consultation</Button>} />
+                        </div>
+                    </PopoverContent>
+                </Popover>
+            </TableCell>
+        </TableRow>
+    );
 }
-
 
 export default function Home() {
 
@@ -221,17 +237,18 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-[100dvh] bg-background">
       <header className="px-4 lg:px-6 h-16 flex items-center sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b">
-        <a className="flex items-center justify-center" href="#">
+        <Link className="flex items-center justify-center" href="/">
           <Building className="h-6 w-6 text-primary" />
           <span className="sr-only">Enterprise Cloud Platform</span>
-        </a>
+        </Link>
         <h1 className="ml-4 text-xl font-bold">Enterprise Cloud Platform</h1>
         <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           <Button variant="ghost" onClick={() => scrollTo('products')}>Products</Button>
           <Button variant="ghost" onClick={() => scrollTo('solutions')}>Solutions</Button>
+           <Button variant="ghost" onClick={() => scrollTo('case-studies')}>Case Studies</Button>
           <Button variant="ghost" onClick={() => scrollTo('pricing')}>Pricing</Button>
           <Button variant="ghost" onClick={() => scrollTo('faq')}>FAQ</Button>
-          <ConsultationDialogButton className="hidden sm:inline-flex" />
+          <ConsultationDialog triggerButton={<Button variant="default" className="hidden sm:inline-flex shadow-md hover:shadow-primary/30 transition-shadow">Request a Consultation</Button>} />
         </nav>
       </header>
       <main className="flex-1">
@@ -248,9 +265,11 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-4 min-[400px]:flex-row">
-                  <ConsultationDialog />
-                  <Button size="lg" variant="outline">
-                    Explore Documentation
+                   <ConsultationDialog triggerButton={<Button size="lg" variant="default" className="shadow-lg hover:shadow-primary/40 transition-shadow">Request a Consultation</Button>} />
+                  <Button asChild size="lg" variant="outline">
+                    <Link href="/documentation">
+                      Explore Documentation
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -272,10 +291,13 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
-              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16 mt-6">
+              <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20 mt-8">
                 {trustedLogos.map((logo) => (
-                  <div key={logo.name} className="flex items-center justify-center">
-                     <Image src={`https://placehold.co/120x60.png/E2E8F0/4A5568?text=${logo.name}`} alt={logo.name} width={120} height={60} className="grayscale opacity-60 hover:opacity-100 transition-opacity duration-300" data-ai-hint="company logo" />
+                  <div key={logo.name} className="flex flex-col items-center justify-center gap-2 group">
+                     <div className="bg-gray-200 p-4 rounded-lg w-32 h-16 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <Building className="h-8 w-8 text-gray-500" />
+                     </div>
+                     <span className="text-sm font-medium text-muted-foreground">{logo.name}</span>
                   </div>
                 ))}
               </div>
@@ -365,7 +387,38 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+         <section id="case-studies" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+            <div className="container px-4 md:px-6">
+                <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                    <div className="space-y-2">
+                        <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">Case Studies</div>
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Real-World Success Stories</h2>
+                        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                            See how leading companies are leveraging our platform to drive innovation and growth.
+                        </p>
+                    </div>
+                </div>
+                <div className="mx-auto grid max-w-5xl gap-12 mt-12 lg:grid-cols-3 lg:gap-8">
+                    {caseStudies.map((study, i) => (
+                        <Card key={study.title} className="fade-in-item" style={{ animationDelay: `${i * 150}ms` }}>
+                            <CardHeader>
+                                <Image src={study.image} alt={study.title} width={600} height={400} className="rounded-t-lg" data-ai-hint="abstract technology" />
+                                <CardTitle className="pt-4">{study.company}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="font-semibold">{study.title}</p>
+                                <p className="text-sm text-muted-foreground mt-2">{study.description}</p>
+                            </CardContent>
+                            <CardFooter>
+                                <Button variant="link">Read More</Button>
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
@@ -388,18 +441,7 @@ export default function Home() {
                   </TableHeader>
                   <TableBody>
                     {products.map((product) => (
-                      <TableRow key={product.title} className="hover:bg-primary/5">
-                        <TableCell className="font-bold text-lg">{product.title}</TableCell>
-                        <TableCell>
-                          <ul className="list-disc list-inside text-sm text-muted-foreground">
-                            {product.features.map(feature => <li key={feature}>{feature}</li>)}
-                          </ul>
-                        </TableCell>
-                        <TableCell className="text-right font-semibold text-lg">{product.pricing}</TableCell>
-                        <TableCell className="text-right">
-                          <ConsultationDialogButton />
-                        </TableCell>
-                      </TableRow>
+                      <ProductPricingRow key={product.title} product={product} />
                     ))}
                   </TableBody>
                 </Table>
@@ -407,8 +449,7 @@ export default function Home() {
             </div>
         </section>
 
-
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -422,7 +463,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="faq" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
@@ -448,7 +489,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -459,7 +500,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2 mt-4">
-               <ConsultationDialogButton className="w-full" />
+               <ConsultationDialog triggerButton={<Button className="w-full">Request a Consultation</Button>} />
             </div>
           </div>
         </section>
@@ -478,5 +519,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
