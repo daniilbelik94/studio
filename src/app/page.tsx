@@ -1,7 +1,7 @@
 
 'use client'
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestimonialsSection } from "@/components/testimonials";
@@ -10,13 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock, BookOpen } from "lucide-react";
+import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock, BookOpen, Menu, X, Twitter, Linkedin, Github } from "lucide-react";
 import Image from "next/image";
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 const products = [
   {
@@ -209,7 +210,14 @@ function ProductPricingRow({ product }: { product: (typeof products)[0] }) {
     );
 }
 
+const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode, onClick?: () => void }) => (
+  <a href={href} onClick={onClick} className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+    {children}
+  </a>
+);
+
 export default function Home() {
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -231,27 +239,73 @@ export default function Home() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setMenuOpen(false);
     }
   };
+  
+  const navLinks = [
+    { label: 'Products', id: 'products' },
+    { label: 'Solutions', id: 'solutions' },
+    { label: 'Case Studies', id: 'case-studies' },
+    { label: 'Pricing', id: 'pricing' },
+    { label: 'FAQ', id: 'faq' },
+  ];
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-background">
+    <div className="flex flex-col min-h-[100dvh] bg-background relative overflow-hidden">
+      <div className="animated-shape bg-primary/50" style={{ top: '10%', left: '10%', width: '200px', height: '200px', animationDelay: '0s' }}></div>
+      <div className="animated-shape bg-accent/50" style={{ top: '50%', left: '80%', width: '300px', height: '300px', animationDelay: '5s' }}></div>
+      <div className="animated-shape bg-secondary/50" style={{ top: '80%', left: '20%', width: '150px', height: '150px', animationDelay: '10s' }}></div>
+
       <header className="px-4 lg:px-6 h-16 flex items-center sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b">
-        <Link className="flex items-center justify-center" href="/">
+        <Link className="flex items-center justify-center mr-4" href="/">
           <Building className="h-6 w-6 text-primary" />
           <span className="sr-only">Enterprise Cloud Platform</span>
         </Link>
-        <h1 className="ml-4 text-xl font-bold">Enterprise Cloud Platform</h1>
-        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
-          <Button variant="ghost" onClick={() => scrollTo('products')}>Products</Button>
-          <Button variant="ghost" onClick={() => scrollTo('solutions')}>Solutions</Button>
-           <Button variant="ghost" onClick={() => scrollTo('case-studies')}>Case Studies</Button>
-          <Button variant="ghost" onClick={() => scrollTo('pricing')}>Pricing</Button>
-          <Button variant="ghost" onClick={() => scrollTo('faq')}>FAQ</Button>
-          <ConsultationDialog triggerButton={<Button variant="default" className="hidden sm:inline-flex shadow-md hover:shadow-primary/30 transition-shadow">Request a Consultation</Button>} />
+        <h1 className="hidden sm:block text-xl font-bold">Enterprise Cloud Platform</h1>
+
+        {/* Desktop Navigation */}
+        <nav className="ml-auto hidden lg:flex items-center gap-4 sm:gap-6">
+          {navLinks.map(link => (
+            <Button key={link.id} variant="ghost" onClick={() => scrollTo(link.id)}>{link.label}</Button>
+          ))}
         </nav>
+        <div className="hidden lg:flex items-center ml-4 gap-2">
+            <ConsultationDialog triggerButton={<Button variant="default" className="shadow-md hover:shadow-primary/30 transition-shadow">Request a Consultation</Button>} />
+            <ThemeToggle />
+        </div>
+        
+        {/* Mobile Navigation */}
+        <div className="ml-auto lg:hidden flex items-center">
+            <ThemeToggle />
+            <Sheet open={isMenuOpen} onOpenChange={setMenuOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="outline" size="icon" className="ml-2">
+                        <Menu className="h-6 w-6" />
+                        <span className="sr-only">Open navigation menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left">
+                    <SheetHeader>
+                         <Link className="flex items-center justify-center" href="/" onClick={() => setMenuOpen(false)}>
+                            <Building className="h-6 w-6 text-primary" />
+                            <span className="ml-2 font-bold">Enterprise Cloud</span>
+                         </Link>
+                    </SheetHeader>
+                    <nav className="grid gap-4 py-8">
+                      {navLinks.map(link => (
+                        <Button key={link.id} variant="ghost" className="justify-start text-lg" onClick={() => scrollTo(link.id)}>{link.label}</Button>
+                      ))}
+                      <Button asChild size="lg" variant="outline" onClick={() => setMenuOpen(false)}>
+                         <Link href="/documentation">Explore Documentation</Link>
+                      </Button>
+                      <ConsultationDialog triggerButton={<Button size="lg">Request a Consultation</Button>} />
+                    </nav>
+                </SheetContent>
+            </Sheet>
+        </div>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 z-10">
         <section className="w-full py-20 md:py-32 lg:py-40 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
@@ -287,15 +341,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 bg-muted">
+        <section className="w-full py-12 md:py-24 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
               <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20 mt-8">
                 {trustedLogos.map((logo) => (
                   <div key={logo.name} className="flex flex-col items-center justify-center gap-2 group">
-                     <div className="bg-gray-200 p-4 rounded-lg w-32 h-16 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <Building className="h-8 w-8 text-gray-500" />
+                     <div className="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg w-32 h-16 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <Building className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                      </div>
                      <span className="text-sm font-medium text-muted-foreground">{logo.name}</span>
                   </div>
@@ -318,7 +372,7 @@ export default function Home() {
             </div>
             <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-2 xl:grid-cols-4 mt-12">
               {products.map((product, i) => (
-                <Card key={product.title} className="fade-in-item flex flex-col h-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300" style={{ animationDelay: `${i * 150}ms` }}>
+                <Card key={product.title} className="fade-in-item flex flex-col h-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 bg-card/50 backdrop-blur-sm" style={{ animationDelay: `${i * 150}ms` }}>
                   <CardHeader className="items-center pt-8">
                     {product.icon}
                     <CardTitle className="mt-4 text-center">{product.title}</CardTitle>
@@ -335,7 +389,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="why-us" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="why-us" className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -373,7 +427,7 @@ export default function Home() {
             </div>
             <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-3 md:gap-12 lg:max-w-5xl mt-12">
               {solutions.map((solution, i) => (
-                <Card key={solution.title} className="fade-in-item flex flex-col h-full text-center shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300" style={{ animationDelay: `${i * 150}ms` }}>
+                <Card key={solution.title} className="fade-in-item flex flex-col h-full text-center shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 bg-card/50 backdrop-blur-sm" style={{ animationDelay: `${i * 150}ms` }}>
                   <CardHeader className="items-center pt-8">
                     {solution.icon}
                     <CardTitle className="mt-4">{solution.title}</CardTitle>
@@ -387,7 +441,7 @@ export default function Home() {
           </div>
         </section>
 
-         <section id="case-studies" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+         <section id="case-studies" className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <div className="space-y-2">
@@ -400,7 +454,7 @@ export default function Home() {
                 </div>
                 <div className="mx-auto grid max-w-5xl gap-12 mt-12 lg:grid-cols-3 lg:gap-8">
                     {caseStudies.map((study, i) => (
-                        <Card key={study.title} className="fade-in-item" style={{ animationDelay: `${i * 150}ms` }}>
+                        <Card key={study.title} className="fade-in-item bg-card/50 backdrop-blur-sm" style={{ animationDelay: `${i * 150}ms` }}>
                             <CardHeader>
                                 <Image src={study.image} alt={study.title} width={600} height={400} className="rounded-t-lg" data-ai-hint="abstract technology" />
                                 <CardTitle className="pt-4">{study.company}</CardTitle>
@@ -429,7 +483,7 @@ export default function Home() {
                     </p>
                 </div>
               </div>
-              <Card className="mt-12 shadow-lg">
+              <Card className="mt-12 shadow-lg bg-card/50 backdrop-blur-sm">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -449,7 +503,7 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -477,7 +531,7 @@ export default function Home() {
             <div className="mx-auto max-w-3xl w-full mt-12">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="fade-in-item bg-background rounded-lg shadow-sm mb-4 px-6" style={{ animationDelay: `${index * 150}ms` }}>
+                  <AccordionItem key={index} value={`item-${index}`} className="fade-in-item bg-card/50 backdrop-blur-sm rounded-lg shadow-sm mb-4 px-6" style={{ animationDelay: `${index * 150}ms` }}>
                     <AccordionTrigger className="text-lg font-medium text-left hover:no-underline">{faq.question}</AccordionTrigger>
                     <AccordionContent className="text-base text-muted-foreground pt-2">
                       {faq.answer}
@@ -489,7 +543,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -505,16 +559,54 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">&copy; 2024 Enterprise Cloud Platform. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:underline underline-offset-4 text-muted-foreground" href="#">
-            Terms of Service
-          </a>
-          <a className="text-xs hover:underline underline-offset-4 text-muted-foreground" href="#">
-            Privacy
-          </a>
-        </nav>
+      <footer className="bg-background border-t z-10">
+        <div className="container mx-auto py-12 px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-1">
+              <Link href="/" className="flex items-center gap-2">
+                <Building className="h-8 w-8 text-primary" />
+                <span className="text-xl font-bold">Enterprise Cloud</span>
+              </Link>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Scalable cloud solutions for modern enterprise businesses.
+              </p>
+              <div className="flex mt-6 space-x-4">
+                <a href="#" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
+                <a href="#" className="text-muted-foreground hover:text-primary"><Github className="h-5 w-5" /></a>
+                <a href="#" className="text-muted-foreground hover:text-primary"><Linkedin className="h-5 w-5" /></a>
+              </div>
+            </div>
+            <div className="col-span-1 md:col-start-2">
+              <h3 className="font-semibold tracking-wider">Products</h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Virtual Machines</a></li>
+                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Object Storage</a></li>
+                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Managed Kubernetes</a></li>
+                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Enterprise Security</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold tracking-wider">Company</h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li><a href="#" className="text-muted-foreground hover:text-primary">About Us</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary">Careers</a></li>
+                <li><a href="/documentation" className="text-muted-foreground hover:text-primary">Documentation</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary">Contact Us</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold tracking-wider">Legal</h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary">Privacy Policy</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary">Acceptable Use</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row justify-between items-center">
+            <p className="text-sm text-muted-foreground">&copy; 2024 Enterprise Cloud Platform. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
