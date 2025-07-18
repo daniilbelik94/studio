@@ -1,11 +1,13 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Building, Cpu, HardDrive, Zap, Gauge, Globe, Shield } from "lucide-react";
+import { Building, Cpu, HardDrive, Zap, Gauge, Globe, Shield, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Footer } from "@/components/footer";
 
 const featureCards = [
     {
@@ -19,14 +21,14 @@ const featureCards = [
         description: "Local NVMe SSDs provide high-throughput, low-latency storage perfect for databases and I/O-intensive applications.",
     },
     {
-        icon: <Zap className="h-8 w-8 text-primary" />,
-        title: "Scalable Resources",
-        description: "Instantly scale your CPU, RAM, and storage resources up or down to meet changing demands without downtime.",
+        icon: <Globe className="h-8 w-8 text-primary" />,
+        title: "Global Datacenters",
+        description: "Deploy your servers in multiple geographic regions to reduce latency for your global user base.",
     },
     {
-        icon: <Gauge className="h-8 w-8 text-primary" />,
-        title: "99.99% Uptime SLA",
-        description: "Our robust infrastructure is backed by an industry-leading Service Level Agreement, guaranteeing high availability.",
+        icon: <Shield className="h-8 w-8 text-primary" />,
+        title: "Included Security",
+        description: "All virtual machines are protected by our network-level firewall and free DDoS mitigation services.",
     },
 ];
 
@@ -56,8 +58,8 @@ export default function VirtualMachinesPage() {
     <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">Enterprise Cloud</span>
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
+              <span className="hidden text-lg font-bold sm:inline-block">Enterprise Cloud</span>
           </Link>
           <nav className="ml-auto hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link className="font-bold text-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
@@ -77,7 +79,9 @@ export default function VirtualMachinesPage() {
              <Button asChild className="hidden md:flex">
                <Link href="/company/contact">Contact Sales</Link>
              </Button>
-             <ThemeToggle />
+              <div className="md:ml-4">
+                <ThemeToggle />
+             </div>
            </div>
       </header>
       <main className="flex-1">
@@ -107,11 +111,19 @@ export default function VirtualMachinesPage() {
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                 Power your applications with our scalable, secure, and high-performance virtual servers, designed for enterprise workloads of any scale.
                 </p>
+                <div className="mt-6 flex justify-center gap-4">
+                    <Button asChild size="lg">
+                        <Link href="#pricing">Get Started</Link>
+                    </Button>
+                     <Button asChild variant="outline" size="lg">
+                        <Link href="/documentation#getting-started">Read Docs <ChevronRight className="h-4 w-4 ml-1" /></Link>
+                    </Button>
+                </div>
             </div>
 
-             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
+             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-12">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow bg-card/50">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -124,7 +136,7 @@ export default function VirtualMachinesPage() {
             </div>
           </section>
 
-          <section className="py-12 md:py-24">
+          <section id="pricing" className="py-12 md:py-24 scroll-mt-20">
             <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold">Find the Perfect Plan</h2>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">From small projects to large-scale enterprise applications, we have a plan that fits your needs.
@@ -132,12 +144,12 @@ export default function VirtualMachinesPage() {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
                 {plans.map(plan => (
-                    <Card key={plan.name} className="flex flex-col">
-                        <CardHeader>
+                    <Card key={plan.name} className="flex flex-col shadow-lg hover:shadow-2xl transition-shadow border-primary/20 border-2">
+                        <CardHeader className="bg-muted/50">
                             <CardTitle className="text-2xl">{plan.name}</CardTitle>
                             <CardDescription>{plan.description}</CardDescription>
                         </CardHeader>
-                        <CardContent className="flex-1">
+                        <CardContent className="flex-1 pt-6">
                             <p className="text-4xl font-bold mb-4">{plan.price}<span className="text-lg font-normal text-muted-foreground">/mo</span></p>
                             <ul className="space-y-2 text-muted-foreground">
                                 {plan.specs.map(spec => (
@@ -148,14 +160,16 @@ export default function VirtualMachinesPage() {
                             </ul>
                         </CardContent>
                         <CardFooter>
-                            <Button className="w-full bg-accent hover:bg-accent/90">Deploy Now</Button>
+                             <Button asChild className="w-full">
+                                <Link href="/company/contact">Deploy Now</Link>
+                            </Button>
                         </CardFooter>
                     </Card>
                 ))}
             </div>
           </section>
 
-          <section className="text-center py-12 bg-primary/10 rounded-lg">
+          <section className="text-center py-16 bg-primary/10 rounded-lg">
                 <h2 className="text-3xl font-bold">Ready to Launch?</h2>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                     Deploy your first virtual machine in under a minute from our intuitive control panel.
@@ -166,6 +180,9 @@ export default function VirtualMachinesPage() {
             </section>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    

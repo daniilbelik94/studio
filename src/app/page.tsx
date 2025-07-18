@@ -10,14 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock, BookOpen, Menu, X, Twitter, Linkedin, Github } from "lucide-react";
+import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock, BookOpen, Menu, X, Twitter, Linkedin, Github, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { ThemeToggle } from '@/components/theme-toggle';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
+import { Footer } from "@/components/footer";
 
 const products = [
   {
@@ -100,69 +99,72 @@ const caseStudies = [
         company: "Quantum Corp",
         title: "Quantum Corp Scales E-commerce Platform by 500% for Black Friday",
         description: "By leveraging our auto-scaling Virtual Machines and Managed Kubernetes, Quantum Corp successfully handled record-breaking traffic without any downtime, ensuring a smooth experience for their customers and maximizing sales.",
-        image: "https://placehold.co/600x400.png"
+        image: "https://placehold.co/600x400.png",
+        link: "#",
+        dataAiHint: "e-commerce success"
     },
     {
         company: "Stellar Tech",
         title: "Stellar Tech Achieves Global Low-Latency for their SaaS Application",
         description: "Using our global Object Storage with integrated CDN, Stellar Tech was able to serve their application assets from edge locations worldwide, reducing page load times by 60% and significantly improving user satisfaction.",
-        image: "https://placehold.co/600x400.png"
+        image: "https://placehold.co/600x400.png",
+        link: "#",
+        dataAiHint: "saas global network"
     },
     {
         company: "Innovate Inc",
         title: "Innovate Inc Secures Financial Data with Enterprise-Grade Security",
         description: "With our comprehensive security suite, including WAF and DDoS mitigation, Innovate Inc protects its sensitive financial data, meets compliance requirements, and builds trust with its enterprise customers.",
-        image: "https://placehold.co/600x400.png"
+        image: "https://placehold.co/600x400.png",
+        link: "#",
+        dataAiHint: "finance security"
     }
 ];
 
+
 const trustedLogos = [
-  { 
-    name: "Microsoft", 
-    logo: (
-      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
-        <title>Microsoft</title>
-        <path d="M11.4 0H0V11.4h11.4V0zM24 0H12.6v11.4H24V0zM11.4 12.6H0V24h11.4V12.6zM24 12.6H12.6V24H24V12.6z"/>
-      </svg>
-    )
-  },
   { 
     name: "Google", 
     logo: (
-      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
-        <title>Google</title>
-        <path d="M21.543 9.75h-9.94v4.5h5.64c-.24 1.5-1.44 3.75-5.64 3.75-3.41 0-6.17-2.82-6.17-6.25s2.76-6.25 6.17-6.25c1.94 0 3.24.83 3.98 1.54l3.18-3.04C19.223 1.34 16.033 0 11.603 0 5.203 0 0 5.14 0 11.5s5.203 11.5 11.603 11.5c6.6 0 11.26-4.63 11.26-11.25 0-.75-.08-1.5-.22-2.25Z"/>
+      <svg role="img" viewBox="0 0 32 32" className="h-8 w-8 text-muted-foreground group-hover:text-foreground transition-colors">
+        <use href="#icon-google"></use>
       </svg>
     )
   },
   { 
-    name: "Amazon Web Services", 
+    name: "Microsoft", 
     logo: (
-       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
-        <title>Amazon Web Services</title>
-        <path d="M4.347 18.002c-1.39 0-2.481.501-3.23 1.487-.768.986-.986 2.29-.986 3.766s.218 2.76.986 3.727c.75.967 1.84 1.488 3.23 1.488 1.41 0 2.519-.52 3.288-1.488.768-.966.986-2.25.986-3.727s-.218-2.78-.986-3.766c-.77-.986-1.879-1.487-3.288-1.487zm-1.8 7.005c-.328 0-.578-.14-.73-.418-.15-.28-.219-.719-.219-1.298 0-.58.07-1.02.219-1.299.152-.28.402-.419.73-.419.32 0 .58.14.73.419.15.28.219.72.219 1.299 0 .58-.07 1.018-.219 1.298-.15.278-.41.418-.73.418zm4.197-3.956c0 .76-.14 1.37-.419 1.838-.28.468-.75.718-1.39.718-.62 0-1.09-.25-1.37-.718-.28-.468-.418-1.078-.418-1.838V4.53h3.597v16.521zM24 16.513c0 .878-.2 1.638-.58 2.29-.38.65-.967 1.099-1.74 1.328l2.12 4.336H20.6l-1.99-4.219h-1.6v4.22h-3.6V4.53h4.638c1.658 0 2.87.28 3.65.858.78.58 1.17 1.5.117 2.76 0 .8-.16 1.46-.48 1.98-.32.52-.78.9-1.4 1.12l2.36 5.267zm-3.92-.76c.52 0 .91-.12 1.17-.36.26-.24.38-.6.38-1.06 0-.46-.12-.8-.38-1.02-.26-.22-.65-.34-1.17-.34h-1.06v2.78h1.06zm-1.06-4.24h.98c.48 0 .85-.1.112-.3.27-.2.4-.5.4-1.02s-.13-.86-.4-1.06c-.27-.2-.64-.31-1.12-.31h-.98v2.98zM14.547 0c.34.42.52 1.06.52 1.94v.9H9.327v-.9c0-.88.18-1.52.52-1.94C10.2.42 10.82 0 11.937 0c1.118 0 1.74.42 2.61 1.42l-1.8 1.54c-.5-.58-.88-.88-1.14-.88-.26 0-.44.1-.54.3-.1.2-.16.5-.16.9v1.2h4.52v-1.2c0-.8.14-1.44.42-1.92.28-.48.72-.72 1.32-.72s1.04.24 1.32.72c.28.48.42 1.12.42 1.92v13.36c0 .8-.14 1.44-.42 1.92-.28.48-.72.72-1.32.72s-1.04-.24-1.32-.72a2.4 2.4 0 01-.42-1.92v-4.9h-4.52v4.9c0 .8-.14 1.44-.42 1.92-.28.48-.72.72-1.32.72s-1.04-.24-1.32-.72a2.4 2.4 0 01-.42-1.92V1.94c0-.88.18-1.52.52-1.94C9.187.42 9.807 0 10.927 0c1.12 0 1.74.42 2.61 1.42l1.8-1.54C14.807.42 14.167 0 14.547 0z"/>
+       <svg role="img" viewBox="0 0 32 32" className="h-8 w-8 text-muted-foreground group-hover:text-foreground transition-colors">
+        <use href="#icon-microsoft"></use>
       </svg>
     )
   },
   { 
     name: "Salesforce", 
     logo: (
-       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
-        <title>Salesforce</title>
-        <path d="M11.37.75c2.32.06 4.39.83 6.13 2.25 1.74 1.42 2.92 3.42 3.32 5.76.4 2.34-.03 4.69-1.23 6.74s-2.99 3.52-5.12 4.14-4.48.48-6.66-.4-4.04-2.52-5.18-4.54-1.7-4.32-1.6-6.62c.1-2.3 1-4.54 2.54-6.36S8.72.69 11.37.75zM8.33 6.42c-.22 2.22-.38 4.45-.59 6.67-.18 1.84.28 3.69 1.19 5.21.91 1.52 2.38 2.58 4.1 2.93 1.72.35 3.54-.05 5-1.02s2.48-2.51 2.95-4.22c.47-1.71.32-3.53-.42-5.13s-1.99-2.9-3.53-3.8-3.32-1.3-5.1-.96-3.32.55-4.6 1.32z"/>
+       <svg role="img" viewBox="0 0 32 32" className="h-8 w-8 text-muted-foreground group-hover:text-foreground transition-colors">
+        <use href="#icon-salesforce"></use>
+      </svg>
+    )
+  },
+    { 
+    name: "Amazon Web Services", 
+    logo: (
+       <svg role="img" viewBox="0 0 32 32" className="h-8 w-8 text-muted-foreground group-hover:text-foreground transition-colors">
+        <use href="#icon-amazonaws"></use>
       </svg>
     )
   },
   { 
     name: "Oracle", 
     logo: (
-       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
-        <title>Oracle</title>
-        <path d="M12.451 17.616c-.31.082-.64.122-.97.122-1.424 0-2.587-.964-2.587-2.735v-5.268H6v5.39c0 2.653 1.794 4.17 4.11 4.17.68 0 1.32-.122 1.875-.367l.466 2.337c-.74.347-1.685.55-2.716.55-3.09 0-5.592-1.918-5.592-5.753V8.81h-2.756v-2.4h2.756V3.883h3.048v2.527h3.31v2.4h-3.31v4.88c0 .8.248 1.285.992 1.285.35 0 .638-.082.89-.245l.445 2.336zM20.755 6.41h3.048v14.94h-3.048z"/>
+       <svg role="img" viewBox="0 0 32 32" className="h-8 w-8 text-muted-foreground group-hover:text-foreground transition-colors">
+        <use href="#icon-oracle"></use>
       </svg>
     )
   },
 ];
+
 
 const faqs = [
   {
@@ -233,32 +235,13 @@ function ProductPricingRow({ product }: { product: (typeof products)[0] }) {
             </TableCell>
             <TableCell className="text-right font-semibold text-lg">{product.pricing}</TableCell>
             <TableCell className="text-right">
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Button variant="outline">View Details</Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-80">
-                        <div className="grid gap-4">
-                            <div className="space-y-2">
-                                <h4 className="font-medium leading-none">{product.title}</h4>
-                                <p className="text-sm text-muted-foreground">
-                                    {product.details}
-                                </p>
-                            </div>
-                            <ConsultationDialog triggerButton={<Button className="w-full">Request Consultation</Button>} />
-                        </div>
-                    </PopoverContent>
-                </Popover>
+                <Button asChild variant="outline">
+                    <Link href={product.link}>View Details</Link>
+                </Button>
             </TableCell>
         </TableRow>
     );
 }
-
-const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode, onClick?: () => void }) => (
-  <a href={href} onClick={onClick} className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-    {children}
-  </a>
-);
 
 export default function Home() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -297,18 +280,42 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-[100dvh] bg-background relative overflow-hidden">
+        <svg aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <symbol id="icon-oracle" viewBox="0 0 32 32">
+                    <path d="M21.883 5.883h-11.76c-0.002 0-0.003 0-0.005 0-5.588 0-10.117 4.53-10.117 10.117 0 5.586 4.527 10.114 10.112 10.117h11.771c5.588 0 10.117-4.53 10.117-10.117s-4.53-10.117-10.117-10.117v0zM21.625 22.552h-11.244c-3.562-0.074-6.421-2.979-6.421-6.552s2.859-6.478 6.414-6.552l0.007-0h11.244c3.619 0 6.552 2.933 6.552 6.552s-2.933 6.552-6.552 6.552v0z"></path>
+                </symbol>
+                <symbol id="icon-amazonaws" viewBox="0 0 32 32">
+                    <path d="M9.017 13.381c0 0.395 0.043 0.713 0.117 0.947 0.085 0.235 0.192 0.491 0.341 0.768 0.053 0.084 0.075 0.169 0.075 0.244 0 0.107-0.064 0.213-0.203 0.32l-0.671 0.447c-0.077 0.056-0.173 0.091-0.276 0.096l-0.001 0c-0.107 0-0.213-0.053-0.319-0.149-0.138-0.148-0.264-0.312-0.375-0.486l-0.008-0.014c-0.098-0.162-0.208-0.368-0.309-0.579l-0.021-0.049c-0.829 0.979-1.873 1.468-3.129 1.468-0.893 0-1.607-0.255-2.128-0.765-0.521-0.512-0.787-1.192-0.787-2.044 0-0.904 0.319-1.64 0.968-2.192 0.649-0.553 1.511-0.831 2.607-0.831 0.363 0 0.735 0.032 1.128 0.085 0.395 0.053 0.8 0.139 1.224 0.235v-0.777c0-0.809-0.169-1.373-0.5-1.703-0.34-0.331-0.915-0.489-1.733-0.489-0.373 0-0.757 0.041-1.151 0.137s-0.777 0.213-1.149 0.363c-0.101 0.047-0.224 0.094-0.352 0.133l-0.022 0.006c-0.050 0.017-0.108 0.028-0.168 0.031l-0.002 0c-0.149 0-0.224-0.107-0.224-0.329v-0.521c0-0.171 0.021-0.299 0.075-0.373 0.080-0.095 0.18-0.171 0.294-0.221l0.005-0.002c0.372-0.192 0.819-0.352 1.34-0.48 0.48-0.128 1.032-0.202 1.601-0.202 0.021 0 0.043 0 0.064 0l-0.003-0c1.267 0 2.192 0.288 2.788 0.863 0.585 0.573 0.883 1.447 0.883 2.617zM4.697 15c0.351 0 0.712-0.064 1.096-0.192 0.383-0.128 0.724-0.361 1.011-0.68 0.171-0.203 0.299-0.427 0.363-0.683 0.063-0.255 0.107-0.564 0.107-0.925v-0.447c-0.264-0.069-0.597-0.132-0.935-0.177l-0.045-0.005c-0.3-0.040-0.647-0.063-0.999-0.064h-0.001c-0.713 0-1.235 0.139-1.587 0.427-0.351 0.287-0.52 0.691-0.52 1.223 0 0.5 0.127 0.873 0.393 1.128 0.255 0.267 0.627 0.395 1.117 0.395zM13.244 16.149c-0.192 0-0.32-0.032-0.405-0.107-0.085-0.064-0.16-0.213-0.224-0.415l-2.5-8.228c-0.045-0.124-0.079-0.269-0.095-0.418l-0.001-0.008c0-0.171 0.085-0.267 0.255-0.267h1.044c0.201 0 0.34 0.033 0.413 0.107 0.087 0.064 0.151 0.213 0.213 0.416l1.789 7.045 1.66-7.045c0.053-0.213 0.117-0.352 0.201-0.416 0.109-0.068 0.241-0.108 0.383-0.108 0.015 0 0.031 0 0.046 0.001l-0.002-0h0.851c0.203 0 0.341 0.033 0.427 0.107 0.084 0.064 0.16 0.213 0.201 0.416l1.681 7.131 1.841-7.131c0.064-0.213 0.139-0.352 0.213-0.416 0.105-0.068 0.234-0.108 0.372-0.108 0.015 0 0.030 0 0.045 0.001l-0.002-0h0.991c0.169 0 0.267 0.087 0.267 0.267 0 0.053-0.012 0.107-0.023 0.171-0.019 0.102-0.045 0.191-0.078 0.277l0.004-0.010-2.564 8.227c-0.064 0.213-0.139 0.351-0.224 0.415-0.104 0.067-0.231 0.108-0.367 0.108-0.013 0-0.026-0-0.039-0.001l0.002 0h-0.916c-0.201 0-0.34-0.032-0.427-0.107-0.084-0.075-0.159-0.213-0.2-0.427l-1.651-6.864-1.64 6.853c-0.053 0.213-0.116 0.352-0.2 0.427-0.087 0.075-0.236 0.107-0.427 0.107zM26.919 16.436c-0.553 0-1.107-0.064-1.639-0.191-0.532-0.128-0.947-0.267-1.224-0.427-0.171-0.095-0.287-0.201-0.329-0.297-0.040-0.088-0.063-0.19-0.064-0.298v-0.543c0-0.223 0.085-0.329 0.244-0.329 0.064 0 0.128 0.011 0.192 0.032s0.16 0.064 0.267 0.107c0.361 0.16 0.755 0.287 1.171 0.372 0.425 0.085 0.84 0.128 1.267 0.128 0.669 0 1.192-0.117 1.553-0.352 0.334-0.204 0.554-0.567 0.554-0.981 0-0.010-0-0.021-0-0.031l0 0.002c0-0.009 0-0.019 0-0.030 0-0.278-0.109-0.53-0.287-0.716l0 0c-0.192-0.201-0.555-0.383-1.076-0.553l-1.543-0.48c-0.777-0.244-1.352-0.605-1.703-1.084-0.33-0.422-0.53-0.959-0.533-1.543v-0.001c0-0.447 0.097-0.84 0.288-1.181 0.192-0.34 0.447-0.639 0.767-0.872 0.32-0.245 0.68-0.427 1.107-0.553 0.427-0.128 0.873-0.181 1.341-0.181 0.233 0 0.479 0.011 0.713 0.043 0.244 0.032 0.467 0.075 0.691 0.117 0.213 0.053 0.416 0.107 0.607 0.169 0.192 0.064 0.341 0.128 0.448 0.192 0.128 0.065 0.235 0.155 0.318 0.264l0.002 0.002c0.060 0.089 0.096 0.199 0.096 0.317 0 0.012-0 0.024-0.001 0.035l0-0.002v0.5c0 0.224-0.085 0.341-0.245 0.341-0.151-0.018-0.287-0.063-0.41-0.131l0.006 0.003c-0.579-0.262-1.255-0.415-1.968-0.415-0.026 0-0.053 0-0.079 0.001l0.004-0c-0.607 0-1.087 0.095-1.416 0.297-0.331 0.203-0.5 0.511-0.5 0.947 0 0.299 0.107 0.555 0.32 0.756 0.212 0.203 0.605 0.405 1.169 0.587l1.512 0.477c0.765 0.245 1.32 0.587 1.649 1.023s0.489 0.936 0.489 1.489c0 0.457-0.096 0.873-0.276 1.235-0.192 0.363-0.448 0.681-0.777 0.937-0.331 0.267-0.724 0.457-1.181 0.596-0.48 0.148-0.979 0.223-1.523 0.223zM28.931 21.609c-3.501 2.587-8.589 3.959-12.963 3.959-6.131 0-11.653-2.267-15.827-6.035-0.329-0.297-0.032-0.703 0.363-0.468 4.512 2.617 10.079 4.204 15.836 4.204 3.885 0 8.152-0.809 12.080-2.469 0.585-0.267 1.085 0.383 0.511 0.809zM30.389 19.948c-0.448-0.573-2.96-0.276-4.099-0.137-0.34 0.043-0.393-0.256-0.084-0.48 2-1.404 5.289-1 5.672-0.532 0.383 0.48-0.107 3.768-1.98 5.343-0.287 0.245-0.564 0.117-0.436-0.201 0.427-1.053 1.373-3.427 0.927-3.992z"></path>
+                </symbol>
+                <symbol id="icon-salesforce" viewBox="0 0 32 32">
+                    <path d="M13.34 7.221c1-1.061 2.46-1.741 4.061-1.741 2.080 0 3.939 1.2 4.919 2.94 0.84-0.4 1.8-0.6 2.801-0.6 3.799 0 6.879 3.12 6.879 6.96s-3.081 6.96-6.901 6.96c-0.46 0-0.919-0.059-1.36-0.139-0.86 1.56-2.5 2.6-4.4 2.6-0.8 0-1.54-0.2-2.2-0.5-0.879 2.061-2.919 3.499-5.3 3.499-2.479 0-4.6-1.559-5.4-3.759-0.36 0.081-0.72 0.1-1.1 0.1-2.939 0-5.34-2.4-5.34-5.4 0-2 1.081-3.74 2.68-4.68-0.34-0.76-0.52-1.6-0.52-2.461 0-3.44 2.8-6.199 6.2-6.199 2.040 0 3.8 0.939 4.96 2.4z"></path>
+                </symbol>
+                <symbol id="icon-microsoft" viewBox="0 0 32 32">
+                    <path d="M15.2 32h-15.2v-15.2h15.2zM32 32h-15.2v-15.2h15.2zM15.2 15.2h-15.2v-15.2h15.2zM32 15.2h-15.2v-15.2h15.2z"></path>
+                </symbol>
+                <symbol id="icon-google" viewBox="0 0 32 32">
+                    <path d="M16.319 13.713v5.487h9.075c-0.369 2.356-2.744 6.9-9.075 6.9-5.463 0-9.919-4.525-9.919-10.1s4.456-10.1 9.919-10.1c3.106 0 5.188 1.325 6.375 2.469l4.344-4.181c-2.788-2.612-6.4-4.188-10.719-4.188-8.844 0-16 7.156-16 16s7.156 16 16 16c9.231 0 15.363-6.494 15.363-15.631 0-1.050-0.113-1.85-0.25-2.65l-15.113-0.006z"></path>
+                </symbol>
+            </defs>
+        </svg>
+
       <div className="animated-shape bg-primary/50" style={{ top: '10%', left: '10%', width: '200px', height: '200px', animationDelay: '0s' }}></div>
       <div className="animated-shape bg-accent/50" style={{ top: '50%', left: '80%', width: '300px', height: '300px', animationDelay: '5s' }}></div>
       <div className="animated-shape bg-secondary/50" style={{ top: '80%', left: '20%', width: '150px', height: '150px', animationDelay: '10s' }}></div>
 
       <header className="px-4 lg:px-6 h-16 flex items-center sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b">
         <Link className="flex items-center justify-center mr-4" href="/">
-          <Building className="h-6 w-6 text-primary" />
+           <Image
+              src="/logo.png"
+              width="40"
+              height="40"
+              alt="Enterprise Cloud Logo"
+            />
           <span className="sr-only">Enterprise Cloud Platform</span>
         </Link>
         <h1 className="hidden sm:block text-xl font-bold">Enterprise Cloud Platform</h1>
 
-        {/* Desktop Navigation */}
         <nav className="ml-auto hidden lg:flex items-center gap-4 sm:gap-6">
           {navLinks.map(link => (
             <Button key={link.id} variant="ghost" onClick={() => scrollTo(link.id)}>{link.label}</Button>
@@ -319,7 +326,6 @@ export default function Home() {
             <ThemeToggle />
         </div>
         
-        {/* Mobile Navigation */}
         <div className="ml-auto lg:hidden flex items-center">
             <ThemeToggle />
             <Sheet open={isMenuOpen} onOpenChange={setMenuOpen}>
@@ -332,7 +338,7 @@ export default function Home() {
                 <SheetContent side="left">
                     <SheetHeader>
                          <Link className="flex items-center justify-center" href="/" onClick={() => setMenuOpen(false)}>
-                            <Building className="h-6 w-6 text-primary" />
+                            <Image src="/logo.png" width="32" height="32" alt="Enterprise Cloud Logo" />
                             <span className="ml-2 font-bold">Enterprise Cloud</span>
                          </Link>
                     </SheetHeader>
@@ -340,7 +346,7 @@ export default function Home() {
                       {navLinks.map(link => (
                         <Button key={link.id} variant="ghost" className="justify-start text-lg" onClick={() => scrollTo(link.id)}>{link.label}</Button>
                       ))}
-                      <Button asChild size="lg" variant="outline" onClick={() => setMenuOpen(false)}>
+                      <Button asChild size="lg" variant="outline" onClick={() => { setMenuOpen(false); }}>
                          <Link href="/documentation">Explore Documentation</Link>
                       </Button>
                       <ConsultationDialog triggerButton={<Button size="lg">Request a Consultation</Button>} />
@@ -373,7 +379,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center">
                 <Image
-                  src="https://firebasestudio.app/assets/images/1010010101110-1721832168925.jpeg"
+                  src="https://placehold.co/600x400.png"
                   width="600"
                   height="400"
                   alt="Hero"
@@ -391,11 +397,9 @@ export default function Home() {
               <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
               <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20 mt-8">
                 {trustedLogos.map((logo) => (
-                  <div key={logo.name} className="flex flex-col items-center justify-center gap-2 group" title={logo.name}>
-                     <div className="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg w-32 h-16 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                        {logo.logo}
-                     </div>
-                     <span className="text-sm font-medium text-muted-foreground">{logo.name}</span>
+                  <div key={logo.name} className="flex items-center justify-center gap-4 group" title={logo.name}>
+                     {logo.logo}
+                     <span className="text-lg font-medium text-muted-foreground group-hover:text-foreground transition-colors">{logo.name}</span>
                   </div>
                 ))}
               </div>
@@ -416,7 +420,7 @@ export default function Home() {
             </div>
             <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-2 xl:grid-cols-4 mt-12">
               {products.map((product, i) => (
-                <Card key={product.title} className="fade-in-item flex flex-col h-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 bg-card/50 backdrop-blur-sm" style={{ animationDelay: `${i * 150}ms` }}>
+                <Card key={product.title} className="fade-in-item flex flex-col h-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 bg-card/50 backdrop-blur-sm">
                   <CardHeader className="items-center pt-8">
                     {product.icon}
                     <CardTitle className="mt-4 text-center">{product.title}</CardTitle>
@@ -425,7 +429,9 @@ export default function Home() {
                     <CardDescription className="text-center">{product.description}</CardDescription>
                   </CardContent>
                   <CardFooter className="justify-center pb-8">
-                    <Button variant="outline" onClick={() => scrollTo('pricing')}>{product.pricing}</Button>
+                     <Button asChild variant="outline">
+                        <Link href={product.link}>{product.pricing}</Link>
+                    </Button>
                   </CardFooter>
                 </Card>
               ))}
@@ -498,17 +504,19 @@ export default function Home() {
                 </div>
                 <div className="mx-auto grid max-w-5xl gap-12 mt-12 lg:grid-cols-3 lg:gap-8">
                     {caseStudies.map((study, i) => (
-                        <Card key={study.title} className="fade-in-item bg-card/50 backdrop-blur-sm" style={{ animationDelay: `${i * 150}ms` }}>
-                            <CardHeader>
-                                <Image src={study.image} alt={study.title} width={600} height={400} className="rounded-t-lg" data-ai-hint="abstract technology" />
-                                <CardTitle className="pt-4">{study.company}</CardTitle>
+                        <Card key={study.title} className="fade-in-item bg-card/50 backdrop-blur-sm group overflow-hidden">
+                            <CardHeader className="p-0">
+                                <Image src={study.image} alt={study.title} width={600} height={400} className="rounded-t-lg group-hover:scale-105 transition-transform duration-300" data-ai-hint={study.dataAiHint} />
                             </CardHeader>
-                            <CardContent>
-                                <p className="font-semibold">{study.title}</p>
+                            <CardContent className="p-6">
+                                <CardTitle className="text-lg">{study.company}</CardTitle>
+                                <p className="font-semibold mt-2">{study.title}</p>
                                 <p className="text-sm text-muted-foreground mt-2">{study.description}</p>
                             </CardContent>
-                            <CardFooter>
-                                <Button variant="link">Read More</Button>
+                            <CardFooter className="p-6 pt-0">
+                                <Button asChild variant="link" className="p-0">
+                                    <Link href={study.link}>Read More <ChevronRight className="h-4 w-4 ml-1" /></Link>
+                                </Button>
                             </CardFooter>
                         </Card>
                     ))}
@@ -532,7 +540,7 @@ export default function Home() {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-[250px] text-base">Product</TableHead>
-                      <TableHead className="text-base">Specifications</TableHead>
+                      <TableHead className="text-base">Core Specifications</TableHead>
                       <TableHead className="text-right text-base">Price</TableHead>
                       <TableHead className="w-[200px]"></TableHead>
                     </TableRow>
@@ -598,60 +606,12 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2 mt-4">
-               <ConsultationDialog triggerButton={<Button className="w-full">Request a Consultation</Button>} />
+               <ConsultationDialog triggerButton={<Button className="w-full" size="lg">Request a Consultation</Button>} />
             </div>
           </div>
         </section>
       </main>
-      <footer className="bg-background border-t z-10">
-        <div className="container mx-auto py-12 px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-1">
-              <Link href="/" className="flex items-center gap-2">
-                <Building className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold">Enterprise Cloud</span>
-              </Link>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Scalable cloud solutions for modern enterprise businesses.
-              </p>
-              <div className="flex mt-6 space-x-4">
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="h-5 w-5" /></Link>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Github className="h-5 w-5" /></Link>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Linkedin className="h-5 w-5" /></Link>
-              </div>
-            </div>
-            <div className="col-span-1 md:col-start-2">
-              <h3 className="font-semibold tracking-wider">Products</h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li><Link href="/products/virtual-machines" className="text-muted-foreground hover:text-primary transition-colors">Virtual Machines</Link></li>
-                <li><Link href="/products/object-storage" className="text-muted-foreground hover:text-primary transition-colors">Object Storage</Link></li>
-                <li><Link href="/products/managed-kubernetes" className="text-muted-foreground hover:text-primary transition-colors">Managed Kubernetes</Link></li>
-                <li><Link href="/products/enterprise-security" className="text-muted-foreground hover:text-primary transition-colors">Enterprise Security</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold tracking-wider">Company</h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li><Link href="/company/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-                <li><Link href="/company/careers" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
-                <li><Link href="/documentation" className="text-muted-foreground hover:text-primary transition-colors">Documentation</Link></li>
-                <li><Link href="/company/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold tracking-wider">Legal</h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li><Link href="/legal/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
-                <li><Link href="/legal/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/legal/acceptable-use" className="text-muted-foreground hover:text-primary transition-colors">Acceptable Use</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground">&copy; 2024 Enterprise Cloud Platform. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

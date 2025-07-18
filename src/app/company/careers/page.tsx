@@ -1,9 +1,13 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Building, MapPin, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 const jobOpenings = [
     {
@@ -37,9 +41,12 @@ export default function CareersPage() {
     <div className="flex min-h-screen w-full flex-col">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
               <span className="text-lg font-bold">Enterprise Cloud</span>
           </Link>
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
       </header>
       <main className="flex-1">
         <div className="container py-12 px-4 md:px-6">
@@ -98,6 +105,9 @@ export default function CareersPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    

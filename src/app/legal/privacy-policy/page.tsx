@@ -1,20 +1,25 @@
 
-import { Button } from "@/components/ui/button";
-import { Building } from "lucide-react";
+
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
               <span className="text-lg font-bold">Enterprise Cloud</span>
           </Link>
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
       </header>
       <main className="flex-1">
-        <div className="container py-12 px-4 md:px-6">
+        <div className="container max-w-4xl py-12 px-4 md:px-6">
           <Breadcrumb className="mb-8">
               <BreadcrumbList>
                   <BreadcrumbItem>
@@ -32,9 +37,9 @@ export default function PrivacyPolicyPage() {
                   </BreadcrumbItem>
               </BreadcrumbList>
           </Breadcrumb>
-          <div className="prose prose-stone dark:prose-invert max-w-none">
+          <article className="prose prose-stone dark:prose-invert max-w-none">
             <h1>Privacy Policy</h1>
-            <p>Last updated: July 24, 2024</p>
+            <p className="text-muted-foreground">Last updated: July 26, 2024</p>
             
             <p>Enterprise Cloud ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
 
@@ -68,9 +73,12 @@ export default function PrivacyPolicyPage() {
 
              <h2>5. Contact Us</h2>
             <p>If you have questions or comments about this Privacy Policy, please contact us at <a href="mailto:privacy@enterprisecloud.com">privacy@enterprisecloud.com</a>.</p>
-          </div>
+          </article>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    

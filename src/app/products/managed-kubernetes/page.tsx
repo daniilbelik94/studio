@@ -1,10 +1,13 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, Cpu, GitBranch, Layers, Puzzle, Scaling, Rocket, CheckCircle } from "lucide-react";
+import { Building, GitBranch, Layers, Puzzle, Scaling, Rocket, CheckCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 const featureCards = [
     {
@@ -30,10 +33,10 @@ const featureCards = [
 ];
 
 const useCases = [
-    "Microservices architecture",
-    "CI/CD and DevOps automation",
-    "Stateful applications",
-    "Big data processing"
+    "Modern Microservices Architecture",
+    "CI/CD and DevOps Automation",
+    "Scalable Web Applications",
+    "Big Data Processing & ML"
 ];
 
 export default function ManagedKubernetesPage() {
@@ -41,8 +44,8 @@ export default function ManagedKubernetesPage() {
     <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">Enterprise Cloud</span>
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
+              <span className="hidden text-lg font-bold sm:inline-block">Enterprise Cloud</span>
           </Link>
           <nav className="ml-auto hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
@@ -62,7 +65,9 @@ export default function ManagedKubernetesPage() {
              <Button asChild className="hidden md:flex">
                <Link href="/company/contact">Contact Sales</Link>
              </Button>
-             <ThemeToggle />
+             <div className="md:ml-4">
+                <ThemeToggle />
+             </div>
            </div>
       </header>
       <main className="flex-1">
@@ -91,11 +96,19 @@ export default function ManagedKubernetesPage() {
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                 Deploy, manage, and scale your containerized applications effortlessly with our production-ready Kubernetes service. Focus on building great applications, not on infrastructure management.
                 </p>
+                 <div className="mt-6 flex justify-center gap-4">
+                    <Button asChild size="lg">
+                        <Link href="/company/contact">Get Started</Link>
+                    </Button>
+                     <Button asChild variant="outline" size="lg">
+                        <Link href="/documentation#api-reference">Read Docs <ChevronRight className="h-4 w-4 ml-1" /></Link>
+                    </Button>
+                </div>
             </div>
 
-             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
+             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-12">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow bg-card/50">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -125,12 +138,12 @@ export default function ManagedKubernetesPage() {
                      </ul>
                  </div>
                  <div className="flex justify-center">
-                     <Rocket className="h-48 w-48 text-primary/20" />
+                     <Image src="https://placehold.co/500x500.png" width="500" height="500" alt="Kubernetes abstract art" className="rounded-lg shadow-xl" data-ai-hint="kubernetes abstract" />
                  </div>
              </div>
           </section>
           
-          <section className="text-center py-12 bg-primary/10 rounded-lg">
+          <section className="text-center py-16 bg-primary/10 rounded-lg">
                 <h2 className="text-3xl font-bold">Start Building on Kubernetes Today</h2>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                     Create your first cluster in minutes and experience the power of managed Kubernetes.
@@ -141,6 +154,9 @@ export default function ManagedKubernetesPage() {
             </section>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    

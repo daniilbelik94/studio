@@ -1,10 +1,13 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, Archive, Globe, Shield, Zap, UploadCloud, Link2 } from "lucide-react";
+import { Building, Archive, Globe, Shield, UploadCloud, Link2, Server, FolderArchive, Film, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 const featureCards = [
     {
@@ -31,16 +34,19 @@ const featureCards = [
 
 const benefitItems = [
     {
+        icon: <Server className="h-8 w-8 text-accent" />,
         title: "Static Asset Hosting",
         description: "Serve images, videos, and other static content for your websites and applications with high performance and low cost."
     },
     {
+        icon: <FolderArchive className="h-8 w-8 text-accent" />,
         title: "Data Backup & Archiving",
         description: "A durable and cost-effective solution for long-term data retention, disaster recovery, and compliance."
     },
      {
-        title: "Big Data & AI",
-        description: "Create massive data lakes to store and analyze large datasets for machine learning and analytics workloads."
+        icon: <Film className="h-8 w-8 text-accent" />,
+        title: "Big Data & Media",
+        description: "Create massive data lakes to store and analyze large datasets for machine learning and deliver media content at scale."
     }
 ];
 
@@ -49,8 +55,8 @@ export default function ObjectStoragePage() {
     <div className="flex min-h-screen w-full flex-col bg-muted/20">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">Enterprise Cloud</span>
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
+              <span className="hidden text-lg font-bold sm:inline-block">Enterprise Cloud</span>
           </Link>
           <nav className="ml-auto hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
@@ -70,7 +76,9 @@ export default function ObjectStoragePage() {
              <Button asChild className="hidden md:flex">
                <Link href="/company/contact">Contact Sales</Link>
              </Button>
-             <ThemeToggle />
+             <div className="md:ml-4">
+                <ThemeToggle />
+             </div>
            </div>
       </header>
       <main className="flex-1">
@@ -99,11 +107,19 @@ export default function ObjectStoragePage() {
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                 A simple, durable, and affordable way to store and serve vast amounts of data for applications, backups, and archives.
                 </p>
+                 <div className="mt-6 flex justify-center gap-4">
+                    <Button asChild size="lg">
+                        <Link href="/company/contact">Get Started</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg">
+                        <Link href="/documentation#databases">Read Docs <ChevronRight className="h-4 w-4 ml-1" /></Link>
+                    </Button>
+                </div>
             </div>
 
-             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
+             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-12">
                 {featureCards.map((feature) => (
-                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow">
+                    <Card key={feature.title} className="text-center shadow-md hover:shadow-xl transition-shadow bg-card/50">
                         <CardHeader className="items-center">
                             {feature.icon}
                         </CardHeader>
@@ -117,22 +133,29 @@ export default function ObjectStoragePage() {
           </section>
 
            <section className="py-12 md:py-24">
-             <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold">Built for a Multitude of Use Cases</h2>
-                <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">Our Object Storage is flexible enough to power everything from simple website assets to complex big data pipelines.</p>
-             </div>
-             <div className="grid md:grid-cols-3 gap-8">
-                {benefitItems.map((item) => (
-                    <div key={item.title} className="bg-card p-6 rounded-lg shadow-sm">
-                        <Link2 className="h-8 w-8 text-accent mb-4" />
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                        <p className="text-muted-foreground">{item.description}</p>
-                    </div>
-                ))}
+             <div className="grid md:grid-cols-2 gap-12 items-center">
+                 <div className="flex justify-center">
+                     <Image src="https://placehold.co/500x500.png" width="500" height="500" alt="Data storage abstract art" className="rounded-lg shadow-xl" data-ai-hint="data storage abstract" />
+                 </div>
+                 <div className="space-y-4">
+                    <h2 className="text-3xl font-bold">Built for a Multitude of Use Cases</h2>
+                    <p className="text-muted-foreground">Our Object Storage is flexible enough to power everything from simple website assets to complex big data pipelines.</p>
+                     <div className="grid gap-6 pt-4">
+                        {benefitItems.map((item) => (
+                            <div key={item.title} className="flex items-start gap-4">
+                                {item.icon}
+                                <div>
+                                    <h3 className="text-xl font-bold mb-1">{item.title}</h3>
+                                    <p className="text-muted-foreground">{item.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                     </div>
+                 </div>
              </div>
            </section>
 
-             <section className="text-center py-12 bg-primary/10 rounded-lg">
+             <section className="text-center py-16 bg-primary/10 rounded-lg">
                 <h2 className="text-3xl font-bold">Start Storing in Seconds</h2>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                     Create your first storage bucket and start uploading data with our simple-to-use control panel or S3-compatible tools.
@@ -143,6 +166,9 @@ export default function ObjectStoragePage() {
             </section>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    

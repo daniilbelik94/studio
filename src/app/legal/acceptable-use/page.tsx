@@ -1,20 +1,25 @@
 
-import { Button } from "@/components/ui/button";
-import { Building } from "lucide-react";
+
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 export default function AcceptableUsePage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <Link className="flex items-center gap-2 font-semibold" href="/">
-              <Building className="h-6 w-6 text-primary" />
+              <Image src="/logo.png" width={32} height={32} alt="Enterprise Cloud Logo" />
               <span className="text-lg font-bold">Enterprise Cloud</span>
           </Link>
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
       </header>
       <main className="flex-1">
-        <div className="container py-12 px-4 md:px-6">
+        <div className="container max-w-4xl py-12 px-4 md:px-6">
            <Breadcrumb className="mb-8">
               <BreadcrumbList>
                   <BreadcrumbItem>
@@ -32,9 +37,9 @@ export default function AcceptableUsePage() {
                   </BreadcrumbItem>
               </BreadcrumbList>
           </Breadcrumb>
-          <div className="prose prose-stone dark:prose-invert max-w-none">
+          <article className="prose prose-stone dark:prose-invert max-w-none">
             <h1>Acceptable Use Policy</h1>
-            <p>Last updated: July 24, 2024</p>
+            <p className="text-muted-foreground">Last updated: July 26, 2024</p>
             
             <p>This Acceptable Use Policy ("AUP") governs your use of the services provided by Enterprise Cloud ("we," "us," or "our") and is incorporated by reference into our Terms of Service. By using our services, you agree to comply with this AUP. We may modify this AUP at any time by posting a revised version on our website.</p>
 
@@ -59,9 +64,12 @@ export default function AcceptableUsePage() {
 
             <h2>5. Contact Us</h2>
             <p>If you have any questions about this Acceptable Use Policy, please contact us at <a href="mailto:legal@enterprisecloud.com">legal@enterprisecloud.com</a>.</p>
-          </div>
+          </article>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
+
+    
