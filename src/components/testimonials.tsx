@@ -61,7 +61,7 @@ export function TestimonialsSection() {
 
   const renderSkeletons = () => (
     Array.from({ length: 3 }).map((_, i) => (
-      <Card key={i} className="flex flex-col justify-between">
+      <Card key={i} className="flex flex-col justify-between p-6">
         <CardHeader>
           <Quote className="w-8 h-8 text-muted" />
         </CardHeader>
@@ -70,7 +70,7 @@ export function TestimonialsSection() {
           <Skeleton className="h-4 w-4/5" />
           <Skeleton className="h-4 w-full" />
         </CardContent>
-        <div className="flex items-center gap-4 p-6 pt-0">
+        <div className="flex items-center gap-4 pt-4">
           <Skeleton className="h-12 w-12 rounded-full" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[150px]" />
@@ -86,15 +86,13 @@ export function TestimonialsSection() {
       {loading ? renderSkeletons() : testimonials.map((testimonial, i) => {
         const [authorName, companyName] = testimonial.author.split(', ');
         return (
-          <Card key={i} className="flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <CardHeader>
-              <Quote className="w-8 h-8 text-accent" />
-            </CardHeader>
-            <CardContent className="flex-1">
+          <Card key={i} className="fade-in-item flex flex-col justify-between bg-muted/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300" style={{ animationDelay: `${i * 150}ms` }}>
+            <CardContent className="pt-8 flex-1">
+              <Quote className="w-8 h-8 text-primary mb-4" />
               <p className="text-lg font-medium">"{testimonial.quote}"</p>
             </CardContent>
             <div className="flex items-center gap-4 p-6 pt-0">
-               <Avatar className="h-12 w-12">
+               <Avatar className="h-12 w-12 border-2 border-primary/50">
                  <AvatarImage src={`https://placehold.co/100x100.png`} data-ai-hint="person portrait" />
                  <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
                </Avatar>

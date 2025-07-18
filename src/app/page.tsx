@@ -1,7 +1,7 @@
 
-
 'use client'
 
+import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestimonialsSection } from "@/components/testimonials";
@@ -13,6 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart, Globe, LifeBuoy, Lock } from "lucide-react";
 import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 
 const products = [
@@ -115,7 +116,7 @@ function ConsultationDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg" variant="accent">
+        <Button size="lg" variant="default" className="shadow-lg hover:shadow-primary/40 transition-shadow">
           Request a Consultation
         </Button>
       </DialogTrigger>
@@ -146,7 +147,7 @@ function ConsultationDialog() {
             <Textarea id="message" placeholder="How can we help you?" className="col-span-3" />
           </div>
         </div>
-        <Button type="submit" variant="accent" className="w-full">Submit Request</Button>
+        <Button type="submit" variant="default" className="w-full">Submit Request</Button>
       </DialogContent>
     </Dialog>
   )
@@ -156,7 +157,7 @@ function ConsultationDialogButton({className}: {className?: string}) {
    return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="accent" className={className}>Request a Consultation</Button>
+        <Button variant="default" className={cn("shadow-md hover:shadow-primary/30 transition-shadow", className)}>Request a Consultation</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -185,7 +186,7 @@ function ConsultationDialogButton({className}: {className?: string}) {
             <Textarea id="message" placeholder="How can we help you?" className="col-span-3" />
           </div>
         </div>
-        <Button type="submit" variant="accent" className="w-full">Submit Request</Button>
+        <Button type="submit" variant="default" className="w-full">Submit Request</Button>
       </DialogContent>
     </Dialog>
    )
@@ -193,6 +194,22 @@ function ConsultationDialogButton({className}: {className?: string}) {
 
 
 export default function Home() {
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section, .fade-in-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -208,43 +225,45 @@ export default function Home() {
           <Building className="h-6 w-6 text-primary" />
           <span className="sr-only">Enterprise Cloud Platform</span>
         </a>
-        <h1 className="ml-4 font-headline text-xl font-bold">Enterprise Cloud Platform</h1>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <h1 className="ml-4 text-xl font-bold">Enterprise Cloud Platform</h1>
+        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           <Button variant="ghost" onClick={() => scrollTo('products')}>Products</Button>
           <Button variant="ghost" onClick={() => scrollTo('solutions')}>Solutions</Button>
           <Button variant="ghost" onClick={() => scrollTo('pricing')}>Pricing</Button>
           <Button variant="ghost" onClick={() => scrollTo('faq')}>FAQ</Button>
-          <ConsultationDialogButton />
+          <ConsultationDialogButton className="hidden sm:inline-flex" />
         </nav>
       </header>
       <main className="flex-1">
         <section className="w-full py-20 md:py-32 lg:py-40 xl:py-48">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-1 lg:gap-12 xl:grid-cols-[1fr_550px]">
-              <div className="flex flex-col justify-center space-y-4">
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+              <div className="flex flex-col justify-center space-y-6">
                 <div className="space-y-4">
-                  <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     The Enterprise-Grade Cloud for Modern Business
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     Our platform provides the performance, reliability, and security your business needs to innovate faster and scale with confidence.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <div className="flex flex-col gap-4 min-[400px]:flex-row">
                   <ConsultationDialog />
                   <Button size="lg" variant="outline">
                     Explore Documentation
                   </Button>
                 </div>
               </div>
-              <Image
-                src="https://placehold.co/600x400.png"
-                width="600"
-                height="400"
-                alt="Hero"
-                data-ai-hint="cloud data center"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
-              />
+              <div className="flex items-center justify-center">
+                <Image
+                  src="https://placehold.co/600x400.png"
+                  width="600"
+                  height="400"
+                  alt="Hero"
+                  data-ai-hint="cloud data center"
+                  className="mx-auto aspect-video overflow-hidden rounded-xl object-cover shadow-2xl"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -253,10 +272,10 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
-              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16">
+              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16 mt-6">
                 {trustedLogos.map((logo) => (
                   <div key={logo.name} className="flex items-center justify-center">
-                     <Image src={`https://placehold.co/120x60.png/E2E8F0/4A5568?text=${logo.name}`} alt={logo.name} width={120} height={60} className="grayscale opacity-60 hover:opacity-100 transition-opacity" data-ai-hint="company logo" />
+                     <Image src={`https://placehold.co/120x60.png/E2E8F0/4A5568?text=${logo.name}`} alt={logo.name} width={120} height={60} className="grayscale opacity-60 hover:opacity-100 transition-opacity duration-300" data-ai-hint="company logo" />
                   </div>
                 ))}
               </div>
@@ -268,24 +287,24 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Our Products</div>
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Built for Performance and Scale</h2>
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">Our Products</div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Built for Performance and Scale</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Explore our suite of cloud services designed to meet the demands of enterprise applications.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-2 xl:grid-cols-4 mt-12">
-              {products.map((product) => (
-                <Card key={product.title} className="flex flex-col h-full">
-                  <CardHeader className="items-center">
+              {products.map((product, i) => (
+                <Card key={product.title} className="fade-in-item flex flex-col h-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300" style={{ animationDelay: `${i * 150}ms` }}>
+                  <CardHeader className="items-center pt-8">
                     {product.icon}
-                    <CardTitle className="mt-4 text-center font-headline">{product.title}</CardTitle>
+                    <CardTitle className="mt-4 text-center">{product.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-1">
                     <CardDescription className="text-center">{product.description}</CardDescription>
                   </CardContent>
-                  <CardFooter className="justify-center">
+                  <CardFooter className="justify-center pb-8">
                     <Button variant="outline" onClick={() => scrollTo('pricing')}>{product.pricing}</Button>
                   </CardFooter>
                 </Card>
@@ -298,20 +317,20 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Why Choose Us</div>
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">The Enterprise Advantage</h2>
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">Why Choose Us</div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">The Enterprise Advantage</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Discover the key benefits that make our platform the right choice for your business.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-12 sm:grid-cols-3 sm:gap-8 mt-12">
-              {whyUsItems.map((item) => (
-                <div key={item.title} className="grid gap-1 text-center">
+              {whyUsItems.map((item, i) => (
+                <div key={item.title} className="fade-in-item grid gap-2 text-center" style={{ animationDelay: `${i * 150}ms` }}>
                    <div className="flex justify-center items-center mb-4">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-bold font-headline">{item.title}</h3>
+                  <h3 className="text-lg font-bold">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
                 </div>
               ))}
@@ -323,21 +342,21 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Solutions</div>
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Tailored for Your Industry</h2>
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">Solutions</div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Tailored for Your Industry</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   We provide specialized cloud solutions to meet the unique challenges of your business.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-3 md:gap-12 lg:max-w-5xl mt-12">
-              {solutions.map((solution) => (
-                <Card key={solution.title} className="flex flex-col h-full text-center">
-                  <CardHeader className="items-center">
+              {solutions.map((solution, i) => (
+                <Card key={solution.title} className="fade-in-item flex flex-col h-full text-center shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300" style={{ animationDelay: `${i * 150}ms` }}>
+                  <CardHeader className="items-center pt-8">
                     {solution.icon}
-                    <CardTitle className="mt-4 font-headline">{solution.title}</CardTitle>
+                    <CardTitle className="mt-4">{solution.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pb-8">
                     <CardDescription>{solution.description}</CardDescription>
                   </CardContent>
                 </Card>
@@ -350,33 +369,33 @@ export default function Home() {
            <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
-                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Pricing</div>
-                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Transparent & Predictable Pricing</h2>
+                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">Pricing</div>
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Transparent &amp; Predictable Pricing</h2>
                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                         Choose the right plan for your needs. All plans come with our core security and support features.
                     </p>
                 </div>
               </div>
-              <Card className="mt-12">
+              <Card className="mt-12 shadow-lg">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[250px]">Product</TableHead>
-                      <TableHead>Specifications</TableHead>
-                      <TableHead className="text-right">Price</TableHead>
-                      <TableHead className="w-[150px]"></TableHead>
+                      <TableHead className="w-[250px] text-base">Product</TableHead>
+                      <TableHead className="text-base">Specifications</TableHead>
+                      <TableHead className="text-right text-base">Price</TableHead>
+                      <TableHead className="w-[200px]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {products.map((product) => (
-                      <TableRow key={product.title}>
-                        <TableCell className="font-medium font-headline">{product.title}</TableCell>
+                      <TableRow key={product.title} className="hover:bg-primary/5">
+                        <TableCell className="font-bold text-lg">{product.title}</TableCell>
                         <TableCell>
                           <ul className="list-disc list-inside text-sm text-muted-foreground">
                             {product.features.map(feature => <li key={feature}>{feature}</li>)}
                           </ul>
                         </TableCell>
-                        <TableCell className="text-right font-semibold">{product.pricing}</TableCell>
+                        <TableCell className="text-right font-semibold text-lg">{product.pricing}</TableCell>
                         <TableCell className="text-right">
                           <ConsultationDialogButton />
                         </TableCell>
@@ -393,7 +412,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">What Our Customers Say</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Our Customers Say</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   We partner with innovative companies to help them achieve their goals. Here’s what they think about our platform.
                 </p>
@@ -407,8 +426,8 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
-                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">FAQ</div>
-                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Frequently Asked Questions</h2>
+                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-primary">FAQ</div>
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Frequently Asked Questions</h2>
                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                         Find answers to common questions about our platform and services.
                     </p>
@@ -417,9 +436,9 @@ export default function Home() {
             <div className="mx-auto max-w-3xl w-full mt-12">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger className="text-lg font-medium">{faq.question}</AccordionTrigger>
-                    <AccordionContent className="text-base text-muted-foreground">
+                  <AccordionItem key={index} value={`item-${index}`} className="fade-in-item bg-background rounded-lg shadow-sm mb-4 px-6" style={{ animationDelay: `${index * 150}ms` }}>
+                    <AccordionTrigger className="text-lg font-medium text-left hover:no-underline">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-base text-muted-foreground pt-2">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -432,14 +451,14 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
-              <h2 className="font-headline text-3xl font-bold tracking-tighter md:text-4xl/tight">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                 Ready to Accelerate Your Business?
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Talk to one of our experts to see how our cloud platform can help you achieve your goals.
               </p>
             </div>
-            <div className="mx-auto w-full max-w-sm space-y-2">
+            <div className="mx-auto w-full max-w-sm space-y-2 mt-4">
                <ConsultationDialogButton className="w-full" />
             </div>
           </div>
@@ -448,10 +467,10 @@ export default function Home() {
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">&copy; 2024 Enterprise Cloud Platform. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:underline underline-offset-4" href="#">
+          <a className="text-xs hover:underline underline-offset-4 text-muted-foreground" href="#">
             Terms of Service
           </a>
-          <a className="text-xs hover:underline underline-offset-4" href="#">
+          <a className="text-xs hover:underline underline-offset-4 text-muted-foreground" href="#">
             Privacy
           </a>
         </nav>
@@ -459,3 +478,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
