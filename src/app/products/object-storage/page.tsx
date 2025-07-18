@@ -1,9 +1,32 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, ChevronRight, Code, Database, Server, Shield } from "lucide-react";
+import { Building, Archive, Globe, Shield, Zap, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+
+const featureCards = [
+    {
+        icon: <UploadCloud className="h-8 w-8 text-primary" />,
+        title: "Infinitely Scalable",
+        description: "Store and retrieve any amount of data, from kilobytes to petabytes, without worrying about capacity limits.",
+    },
+    {
+        icon: <Archive className="h-8 w-8 text-primary" />,
+        title: "S3-Compatible API",
+        description: "Easily integrate with your existing tools and workflows using our fully S3-compatible API.",
+    },
+    {
+        icon: <Globe className="h-8 w-8 text-primary" />,
+        title: "Global Content Delivery",
+        description: "Integrated CDN delivers your content to users worldwide with low latency and high transfer speeds.",
+    },
+    {
+        icon: <Shield className="h-8 w-8 text-primary" />,
+        title: "Built-in Security",
+        description: "Data is encrypted at rest and in transit, with fine-grained access controls to keep your data secure.",
+    },
+];
 
 export default function ObjectStoragePage() {
   return (
@@ -17,7 +40,7 @@ export default function ObjectStoragePage() {
             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
               Virtual Machines
             </Link>
-             <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/object-storage">
+             <Link className="font-bold text-foreground transition-colors hover:text-foreground" href="/products/object-storage">
               Object Storage
             </Link>
              <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/managed-kubernetes">
@@ -50,12 +73,34 @@ export default function ObjectStoragePage() {
                   </BreadcrumbItem>
               </BreadcrumbList>
           </Breadcrumb>
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Object Storage</h1>
-            <p className="text-lg text-muted-foreground">
-              This is a placeholder page for Object Storage.
-            </p>
-          </div>
+          <section className="space-y-6">
+            <div className="text-center">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Object Storage</h1>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                A simple, durable, and affordable way to store and serve vast amounts of data for applications, backups, and archives.
+                </p>
+            </div>
+
+             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
+                {featureCards.map((feature) => (
+                    <Card key={feature.title} className="text-center">
+                        <CardHeader className="items-center">
+                            {feature.icon}
+                        </CardHeader>
+                        <CardContent>
+                            <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
+                            <CardDescription>{feature.description}</CardDescription>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+             <div className="text-center pt-8">
+                 <Button asChild size="lg">
+                    <Link href="/company/contact">Start Storing Today</Link>
+                 </Button>
+             </div>
+          </section>
         </div>
       </main>
     </div>

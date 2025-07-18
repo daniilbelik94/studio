@@ -117,11 +117,51 @@ const caseStudies = [
 ];
 
 const trustedLogos = [
-  { name: "Innovate Inc", path: "1" },
-  { name: "Quantum Corp", path: "2" },
-  { name: "Apex Solutions", path: "3" },
-  { name: "Stellar Tech", path: "4" },
-  { name: "Pinnacle Group", path: "5" },
+  { 
+    name: "Microsoft", 
+    logo: (
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
+        <title>Microsoft</title>
+        <path d="M11.4 0H0V11.4h11.4V0zM24 0H12.6v11.4H24V0zM11.4 12.6H0V24h11.4V12.6zM24 12.6H12.6V24H24V12.6z"/>
+      </svg>
+    )
+  },
+  { 
+    name: "Google", 
+    logo: (
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
+        <title>Google</title>
+        <path d="M21.543 9.75h-9.94v4.5h5.64c-.24 1.5-1.44 3.75-5.64 3.75-3.41 0-6.17-2.82-6.17-6.25s2.76-6.25 6.17-6.25c1.94 0 3.24.83 3.98 1.54l3.18-3.04C19.223 1.34 16.033 0 11.603 0 5.203 0 0 5.14 0 11.5s5.203 11.5 11.603 11.5c6.6 0 11.26-4.63 11.26-11.25 0-.75-.08-1.5-.22-2.25Z"/>
+      </svg>
+    )
+  },
+  { 
+    name: "Amazon Web Services", 
+    logo: (
+       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
+        <title>Amazon Web Services</title>
+        <path d="M4.347 18.002c-1.39 0-2.481.501-3.23 1.487-.768.986-.986 2.29-.986 3.766s.218 2.76.986 3.727c.75.967 1.84 1.488 3.23 1.488 1.41 0 2.519-.52 3.288-1.488.768-.966.986-2.25.986-3.727s-.218-2.78-.986-3.766c-.77-.986-1.879-1.487-3.288-1.487zm-1.8 7.005c-.328 0-.578-.14-.73-.418-.15-.28-.219-.719-.219-1.298 0-.58.07-1.02.219-1.299.152-.28.402-.419.73-.419.32 0 .58.14.73.419.15.28.219.72.219 1.299 0 .58-.07 1.018-.219 1.298-.15.278-.41.418-.73.418zm4.197-3.956c0 .76-.14 1.37-.419 1.838-.28.468-.75.718-1.39.718-.62 0-1.09-.25-1.37-.718-.28-.468-.418-1.078-.418-1.838V4.53h3.597v16.521zM24 16.513c0 .878-.2 1.638-.58 2.29-.38.65-.967 1.099-1.74 1.328l2.12 4.336H20.6l-1.99-4.219h-1.6v4.22h-3.6V4.53h4.638c1.658 0 2.87.28 3.65.858.78.58 1.17 1.5.117 2.76 0 .8-.16 1.46-.48 1.98-.32.52-.78.9-1.4 1.12l2.36 5.267zm-3.92-.76c.52 0 .91-.12 1.17-.36.26-.24.38-.6.38-1.06 0-.46-.12-.8-.38-1.02-.26-.22-.65-.34-1.17-.34h-1.06v2.78h1.06zm-1.06-4.24h.98c.48 0 .85-.1.112-.3.27-.2.4-.5.4-1.02s-.13-.86-.4-1.06c-.27-.2-.64-.31-1.12-.31h-.98v2.98zM14.547 0c.34.42.52 1.06.52 1.94v.9H9.327v-.9c0-.88.18-1.52.52-1.94C10.2.42 10.82 0 11.937 0c1.118 0 1.74.42 2.61 1.42l-1.8 1.54c-.5-.58-.88-.88-1.14-.88-.26 0-.44.1-.54.3-.1.2-.16.5-.16.9v1.2h4.52v-1.2c0-.8.14-1.44.42-1.92.28-.48.72-.72 1.32-.72s1.04.24 1.32.72c.28.48.42 1.12.42 1.92v13.36c0 .8-.14 1.44-.42 1.92-.28.48-.72.72-1.32.72s-1.04-.24-1.32-.72a2.4 2.4 0 01-.42-1.92v-4.9h-4.52v4.9c0 .8-.14 1.44-.42 1.92-.28.48-.72.72-1.32.72s-1.04-.24-1.32-.72a2.4 2.4 0 01-.42-1.92V1.94c0-.88.18-1.52.52-1.94C9.187.42 9.807 0 10.927 0c1.12 0 1.74.42 2.61 1.42l1.8-1.54C14.807.42 14.167 0 14.547 0z"/>
+      </svg>
+    )
+  },
+  { 
+    name: "Salesforce", 
+    logo: (
+       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
+        <title>Salesforce</title>
+        <path d="M11.37.75c2.32.06 4.39.83 6.13 2.25 1.74 1.42 2.92 3.42 3.32 5.76.4 2.34-.03 4.69-1.23 6.74s-2.99 3.52-5.12 4.14-4.48.48-6.66-.4-4.04-2.52-5.18-4.54-1.7-4.32-1.6-6.62c.1-2.3 1-4.54 2.54-6.36S8.72.69 11.37.75zM8.33 6.42c-.22 2.22-.38 4.45-.59 6.67-.18 1.84.28 3.69 1.19 5.21.91 1.52 2.38 2.58 4.1 2.93 1.72.35 3.54-.05 5-1.02s2.48-2.51 2.95-4.22c.47-1.71.32-3.53-.42-5.13s-1.99-2.9-3.53-3.8-3.32-1.3-5.1-.96-3.32.55-4.6 1.32z"/>
+      </svg>
+    )
+  },
+  { 
+    name: "Oracle", 
+    logo: (
+       <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500 dark:text-gray-400">
+        <title>Oracle</title>
+        <path d="M12.451 17.616c-.31.082-.64.122-.97.122-1.424 0-2.587-.964-2.587-2.735v-5.268H6v5.39c0 2.653 1.794 4.17 4.11 4.17.68 0 1.32-.122 1.875-.367l.466 2.337c-.74.347-1.685.55-2.716.55-3.09 0-5.592-1.918-5.592-5.753V8.81h-2.756v-2.4h2.756V3.883h3.048v2.527h3.31v2.4h-3.31v4.88c0 .8.248 1.285.992 1.285.35 0 .638-.082.89-.245l.445 2.336zM20.755 6.41h3.048v14.94h-3.048z"/>
+      </svg>
+    )
+  },
 ];
 
 const faqs = [
@@ -333,11 +373,11 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center">
                 <Image
-                  src="https://placehold.co/600x400.png"
+                  src="https://firebasestudio.app/assets/images/1010010101110-1721832168925.jpeg"
                   width="600"
                   height="400"
                   alt="Hero"
-                  data-ai-hint="cloud data center"
+                  data-ai-hint="cloud technology abstract"
                   className="mx-auto aspect-video overflow-hidden rounded-xl object-cover shadow-2xl"
                 />
               </div>
@@ -351,9 +391,9 @@ export default function Home() {
               <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Trusted by the world's leading companies</h2>
               <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20 mt-8">
                 {trustedLogos.map((logo) => (
-                  <div key={logo.name} className="flex flex-col items-center justify-center gap-2 group">
+                  <div key={logo.name} className="flex flex-col items-center justify-center gap-2 group" title={logo.name}>
                      <div className="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg w-32 h-16 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <Building className="h-8 w-8 text-gray-500 dark:text-gray-400" />
+                        {logo.logo}
                      </div>
                      <span className="text-sm font-medium text-muted-foreground">{logo.name}</span>
                   </div>

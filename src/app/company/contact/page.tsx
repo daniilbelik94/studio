@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Building } from "lucide-react";
+import { Building, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
@@ -35,34 +35,52 @@ export default function ContactPage() {
                   </BreadcrumbItem>
               </BreadcrumbList>
           </Breadcrumb>
-          <div className="space-y-4 max-w-2xl mx-auto">
-            <div className="text-center space-y-2">
-                <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
-                <p className="text-lg text-muted-foreground">
-                  We're here to help. Fill out the form below and we'll get back to you.
-                </p>
-            </div>
-            <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="first-name">First Name</Label>
-                        <Input id="first-name" placeholder="John" />
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-bold tracking-tight">Get in Touch</h1>
+                    <p className="text-lg text-muted-foreground">
+                    We'd love to hear from you. Whether you have a question about features, pricing, or anything else, our team is ready to answer all your questions.
+                    </p>
+                </div>
+                <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                        <Mail className="h-6 w-6 text-primary" />
+                        <a href="mailto:sales@enterprisecloud.com" className="hover:underline">sales@enterprisecloud.com</a>
                     </div>
-                    <div className="grid gap-2">
-                        <Label htmlFor="last-name">Last Name</Label>
-                        <Input id="last-name" placeholder="Doe" />
+                     <div className="flex items-center gap-4">
+                        <Phone className="h-6 w-6 text-primary" />
+                        <span>+1 (800) 555-0199</span>
+                    </div>
+                     <div className="flex items-center gap-4">
+                        <MapPin className="h-6 w-6 text-primary" />
+                        <span>123 Cloud Way, Suite 404, San Francisco, CA 94105</span>
                     </div>
                 </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="john.doe@example.com" />
-              </div>
-               <div className="grid gap-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="How can we help you?" />
-              </div>
             </div>
-            <Button type="submit" variant="default" className="w-full">Submit Request</Button>
+            <div className="space-y-4">
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="first-name">First Name</Label>
+                            <Input id="first-name" placeholder="John" />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="last-name">Last Name</Label>
+                            <Input id="last-name" placeholder="Doe" />
+                        </div>
+                    </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="john.doe@example.com" />
+                  </div>
+                   <div className="grid gap-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea id="message" placeholder="How can we help you?" />
+                  </div>
+                </div>
+                <Button type="submit" variant="default" className="w-full">Submit Request</Button>
+            </div>
           </div>
         </div>
       </main>

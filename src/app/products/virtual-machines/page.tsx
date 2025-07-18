@@ -1,9 +1,32 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building, ChevronRight, Code, Database, Server, Shield } from "lucide-react";
+import { Building, Cpu, Database, Server, Shield, HardDrive, Zap, Gauge } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+
+const featureCards = [
+    {
+        icon: <Cpu className="h-8 w-8 text-primary" />,
+        title: "High-Performance CPUs",
+        description: "Utilize the latest generation of processors for demanding workloads, ensuring fast and reliable performance.",
+    },
+    {
+        icon: <HardDrive className="h-8 w-8 text-primary" />,
+        title: "Blazing-Fast SSD Storage",
+        description: "Local NVMe SSDs provide high-throughput, low-latency storage perfect for databases and I/O-intensive applications.",
+    },
+    {
+        icon: <Zap className="h-8 w-8 text-primary" />,
+        title: "Scalable Resources",
+        description: "Instantly scale your CPU, RAM, and storage resources up or down to meet changing demands without downtime.",
+    },
+    {
+        icon: <Gauge className="h-8 w-8 text-primary" />,
+        title: "99.99% Uptime SLA",
+        description: "Our robust infrastructure is backed by an industry-leading Service Level Agreement, guaranteeing high availability.",
+    },
+];
 
 export default function VirtualMachinesPage() {
   return (
@@ -14,7 +37,7 @@ export default function VirtualMachinesPage() {
               <span className="text-lg font-bold">Enterprise Cloud</span>
           </Link>
           <nav className="ml-auto hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
+            <Link className="font-bold text-foreground transition-colors hover:text-foreground" href="/products/virtual-machines">
               Virtual Machines
             </Link>
              <Link className="text-muted-foreground transition-colors hover:text-foreground" href="/products/object-storage">
@@ -50,12 +73,36 @@ export default function VirtualMachinesPage() {
                   </BreadcrumbItem>
               </BreadcrumbList>
           </Breadcrumb>
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Virtual Machines</h1>
-            <p className="text-lg text-muted-foreground">
-              This is a placeholder page for Virtual Machines.
-            </p>
-          </div>
+          
+          <section className="space-y-6">
+            <div className="text-center">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Virtual Machines</h1>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                Power your applications with our scalable, secure, and high-performance virtual servers, designed for enterprise workloads of any scale.
+                </p>
+            </div>
+
+             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 pt-8">
+                {featureCards.map((feature) => (
+                    <Card key={feature.title} className="text-center">
+                        <CardHeader className="items-center">
+                            {feature.icon}
+                        </CardHeader>
+                        <CardContent>
+                            <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
+                            <CardDescription>{feature.description}</CardDescription>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+             <div className="text-center pt-8">
+                 <Button asChild size="lg">
+                    <Link href="/company/contact">Deploy Your VM Today</Link>
+                 </Button>
+             </div>
+          </section>
+
         </div>
       </main>
     </div>
