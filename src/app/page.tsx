@@ -27,6 +27,7 @@ const products = [
     pricing: "Starting at $25/mo",
     features: ["2 vCPU", "4 GB RAM", "80 GB SSD", "4 TB Transfer"],
     details: "Our Virtual Machines offer a robust and flexible environment for any workload. With options for custom CPU, RAM, and storage configurations, you can tailor your instances to your exact needs. Benefit from our global network for low latency, 99.99% uptime SLA, and included DDoS protection. Perfect for web servers, development environments, and backend services.",
+    link: "/products/virtual-machines",
   },
   {
     icon: <Database className="h-8 w-8 text-primary" />,
@@ -34,7 +35,8 @@ const products = [
     description: "Durable, secure, and highly available object storage for your data, backups, and media content.",
     pricing: "Starting at $0.02/GB",
     features: ["1 TB Storage", "5 TB Transfer", "Global CDN", "S3-Compatible API"],
-    details: "Our S3-compatible Object Storage is designed for durability and infinite scalability. Store and retrieve any amount of data, from anywhere on the web. It's perfect for backups, archives, big data lakes, and serving static assets for your web applications. Integrated with our global CDN, your content is delivered fast, no matter where your users are."
+    details: "Our S3-compatible Object Storage is designed for durability and infinite scalability. Store and retrieve any amount of data, from anywhere on the web. It's perfect for backups, archives, big data lakes, and serving static assets for your web applications. Integrated with our global CDN, your content is delivered fast, no matter where your users are.",
+    link: "/products/object-storage",
   },
   {
     icon: <Cpu className="h-8 w-8 text-primary" />,
@@ -42,7 +44,8 @@ const products = [
     description: "Deploy, manage, and scale containerized applications with our certified Kubernetes service.",
     pricing: "Starting at $70/mo",
     features: ["Free Control Plane", "Auto Scaling", "High-Availability", "Developer Tools"],
-    details: "Focus on your applications, not on managing infrastructure. Our Managed Kubernetes service provides a certified, production-ready environment with a free control plane, automated scaling, and self-healing capabilities. Integrated with our container registry and developer tools, you can streamline your CI/CD pipeline and deploy with confidence."
+    details: "Focus on your applications, not on managing infrastructure. Our Managed Kubernetes service provides a certified, production-ready environment with a free control plane, automated scaling, and self-healing capabilities. Integrated with our container registry and developer tools, you can streamline your CI/CD pipeline and deploy with confidence.",
+    link: "/products/managed-kubernetes",
   },
   {
     icon: <Shield className="h-8 w-8 text-primary" />,
@@ -50,7 +53,8 @@ const products = [
     description: "Protect your infrastructure with advanced threat detection, DDoS mitigation, and web application firewalls.",
     pricing: "Contact Sales",
     features: ["DDoS Mitigation", "WAF", "Threat Intelligence", "24/7 Monitoring"],
-    details: "Secure your critical workloads with our comprehensive security suite. We provide multi-layered protection, including a powerful Web Application Firewall (WAF), proactive DDoS mitigation, and real-time threat intelligence. Our security operations center (SOC) monitors your environment 24/7 to detect and respond to threats before they impact your business."
+    details: "Secure your critical workloads with our comprehensive security suite. We provide multi-layered protection, including a powerful Web Application Firewall (WAF), proactive DDoS mitigation, and real-time threat intelligence. Our security operations center (SOC) monitors your environment 24/7 to detect and respond to threats before they impact your business.",
+    link: "/products/enterprise-security",
   },
 ];
 
@@ -571,35 +575,35 @@ export default function Home() {
                 Scalable cloud solutions for modern enterprise businesses.
               </p>
               <div className="flex mt-6 space-x-4">
-                <a href="#" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
-                <a href="#" className="text-muted-foreground hover:text-primary"><Github className="h-5 w-5" /></a>
-                <a href="#" className="text-muted-foreground hover:text-primary"><Linkedin className="h-5 w-5" /></a>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="h-5 w-5" /></Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Github className="h-5 w-5" /></Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors"><Linkedin className="h-5 w-5" /></Link>
               </div>
             </div>
             <div className="col-span-1 md:col-start-2">
               <h3 className="font-semibold tracking-wider">Products</h3>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Virtual Machines</a></li>
-                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Object Storage</a></li>
-                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Managed Kubernetes</a></li>
-                <li><a href="#" onClick={() => scrollTo('products')} className="text-muted-foreground hover:text-primary">Enterprise Security</a></li>
+                <li><Link href="/products/virtual-machines" className="text-muted-foreground hover:text-primary transition-colors">Virtual Machines</Link></li>
+                <li><Link href="/products/object-storage" className="text-muted-foreground hover:text-primary transition-colors">Object Storage</Link></li>
+                <li><Link href="/products/managed-kubernetes" className="text-muted-foreground hover:text-primary transition-colors">Managed Kubernetes</Link></li>
+                <li><Link href="/products/enterprise-security" className="text-muted-foreground hover:text-primary transition-colors">Enterprise Security</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold tracking-wider">Company</h3>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">About Us</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Careers</a></li>
-                <li><a href="/documentation" className="text-muted-foreground hover:text-primary">Documentation</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Contact Us</a></li>
+                <li><Link href="/company/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+                <li><Link href="/company/careers" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
+                <li><Link href="/documentation" className="text-muted-foreground hover:text-primary transition-colors">Documentation</Link></li>
+                <li><Link href="/company/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold tracking-wider">Legal</h3>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Privacy Policy</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Acceptable Use</a></li>
+                <li><Link href="/legal/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+                <li><Link href="/legal/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/legal/acceptable-use" className="text-muted-foreground hover:text-primary transition-colors">Acceptable Use</Link></li>
               </ul>
             </div>
           </div>
