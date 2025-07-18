@@ -10,12 +10,12 @@ import Image from 'next/image';
 
 const availableTestimonials = [
   // Testimonials with metadata for parsing
-  '{"quote": "Since migrating to this platform, our application uptime has increased to 99.99%. The performance is unparalleled, especially for our European user base.", "author": "CTO, FinTech Corp", "location_relevance": "Europe"}',
-  '{"quote": "The scalability of their Virtual Machines is incredible. We handled a 500% traffic spike on Black Friday without a single issue. A game-changer for our e-commerce site.", "author": "Lead Engineer, RetailGiant", "location_relevance": "Global"}',
-  '{"quote": "As a data science team in the US, their managed Kubernetes service has cut our deployment times in half. The support for ML frameworks is top-notch.", "author": "Head of Data, AnalyticsAI", "location_relevance": "USA"}',
-  '{"quote": "Their object storage is not only fast and affordable but also compliant with all APAC data residency laws, which is critical for our operations in Asia.", "author": "CIO, HealthCare Solutions", "location_relevance": "APAC"}',
-  '{"quote": "We chose them for their robust security features. The peace of mind we get from their advanced threat detection is invaluable for our SaaS platform.", "author": "CISO, SecureSoft", "location_relevance": "Global"}',
-  '{"quote": "The developer experience is fantastic. Their API is well-documented, and the CLI tools make managing our infrastructure in the Americas a breeze.", "author": "DevOps Manager, CodeCrafters", "location_relevance": "Americas"}'
+  '{"quote": "Since migrating to this platform, our application uptime has increased to 99.99%. The performance is unparalleled, especially for our European user base.", "author": "CTO, FinTech Corp", "location_relevance": "Europe", "avatar": "woman professional"}',
+  '{"quote": "The scalability of their Virtual Machines is incredible. We handled a 500% traffic spike on Black Friday without a single issue. A game-changer for our e-commerce site.", "author": "Lead Engineer, RetailGiant", "location_relevance": "Global", "avatar": "man engineer"}',
+  '{"quote": "As a data science team in the US, their managed Kubernetes service has cut our deployment times in half. The support for ML frameworks is top-notch.", "author": "Head of Data, AnalyticsAI", "location_relevance": "USA", "avatar": "woman data scientist"}',
+  '{"quote": "Their object storage is not only fast and affordable but also compliant with all APAC data residency laws, which is critical for our operations in Asia.", "author": "CIO, HealthCare Solutions", "location_relevance": "APAC", "avatar": "man executive"}',
+  '{"quote": "We chose them for their robust security features. The peace of mind we get from their advanced threat detection is invaluable for our SaaS platform.", "author": "CISO, SecureSoft", "location_relevance": "Global", "avatar": "woman security"}',
+  '{"quote": "The developer experience is fantastic. Their API is well-documented, and the CLI tools make managing our infrastructure in the Americas a breeze.", "author": "DevOps Manager, CodeCrafters", "location_relevance": "Americas", "avatar": "man developer"}'
 ];
 
 const defaultTestimonials = availableTestimonials.slice(0, 3).map(t => JSON.parse(t));
@@ -26,6 +26,7 @@ type Testimonial = {
   quote: string;
   author: string;
   location_relevance: string;
+  avatar: string;
 };
 
 export function TestimonialsSection() {
@@ -107,7 +108,7 @@ export function TestimonialsSection() {
             </CardContent>
             <div className="flex items-center gap-4 p-6 pt-0">
                <Avatar className="h-12 w-12 border-2 border-primary/50">
-                 <AvatarImage src={`https://placehold.co/100x100.png`} data-ai-hint="person portrait" />
+                 <AvatarImage src={`https://placehold.co/100x100.png`} data-ai-hint={testimonial.avatar} />
                  <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
                </Avatar>
                <div>

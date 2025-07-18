@@ -134,7 +134,7 @@ body {
   .animate-delay-600 { animation-delay: 600ms; }
 
   .animated-shape {
-    @apply absolute rounded-full filter blur-3xl opacity-30;
+    @apply absolute rounded-full filter blur-xl opacity-50;
     animation: bounce-float 15s ease-in-out infinite;
   }
 
@@ -145,5 +145,3 @@ body {
     75% { transform: translateY(-10px) translateX(30px) scale(1); }
   }
 }
-
-    

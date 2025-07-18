@@ -100,7 +100,7 @@ const caseStudies = [
         title: "Quantum Corp Scales E-commerce Platform by 500% for Black Friday",
         description: "By leveraging our auto-scaling Virtual Machines and Managed Kubernetes, Quantum Corp successfully handled record-breaking traffic without any downtime, ensuring a smooth experience for their customers and maximizing sales.",
         image: "https://placehold.co/600x400.png",
-        link: "#",
+        link: "/documentation#getting-started",
         dataAiHint: "e-commerce success"
     },
     {
@@ -108,7 +108,7 @@ const caseStudies = [
         title: "Stellar Tech Achieves Global Low-Latency for their SaaS Application",
         description: "Using our global Object Storage with integrated CDN, Stellar Tech was able to serve their application assets from edge locations worldwide, reducing page load times by 60% and significantly improving user satisfaction.",
         image: "https://placehold.co/600x400.png",
-        link: "#",
+        link: "/documentation#databases",
         dataAiHint: "saas global network"
     },
     {
@@ -116,7 +116,7 @@ const caseStudies = [
         title: "Innovate Inc Secures Financial Data with Enterprise-Grade Security",
         description: "With our comprehensive security suite, including WAF and DDoS mitigation, Innovate Inc protects its sensitive financial data, meets compliance requirements, and builds trust with its enterprise customers.",
         image: "https://placehold.co/600x400.png",
-        link: "#",
+        link: "/documentation#security",
         dataAiHint: "finance security"
     }
 ];
