@@ -1,7 +1,14 @@
+
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestimonialsSection } from "@/components/testimonials";
-import { Server, Database, Shield, Cpu, Waves, Building } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Server, Database, Shield, Cpu, Waves, Building, Briefcase, Lightbulb, BarChart } from "lucide-react";
 import Image from "next/image";
 
 const products = [
@@ -31,6 +38,24 @@ const products = [
   },
 ];
 
+const solutions = [
+  {
+    icon: <Briefcase className="h-8 w-8 text-primary" />,
+    title: "E-commerce",
+    description: "High-performance infrastructure to handle traffic spikes and provide a seamless shopping experience.",
+  },
+  {
+    icon: <Lightbulb className="h-8 w-8 text-primary" />,
+    title: "SaaS Platforms",
+    description: "Reliable and scalable solutions to build and grow your software-as-a-service business.",
+  },
+  {
+    icon: <BarChart className="h-8 w-8 text-primary" />,
+    title: "Big Data & Analytics",
+    description: "Process and analyze massive datasets with our powerful computing and storage services.",
+  },
+];
+
 const trustedLogos = [
   { name: "Innovate Inc", path: "1" },
   { name: "Quantum Corp", path: "2" },
@@ -39,7 +64,96 @@ const trustedLogos = [
   { name: "Pinnacle Group", path: "5" },
 ];
 
+function ConsultationDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button size="lg" variant="accent">
+          Request a Consultation
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Request a Consultation</DialogTitle>
+          <DialogDescription>
+            Fill out the form below and one of our experts will get back to you shortly.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input id="name" placeholder="John Doe" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              Email
+            </Label>
+            <Input id="email" type="email" placeholder="john.doe@example.com" className="col-span-3" />
+          </div>
+           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="message" className="text-right">
+              Message
+            </Label>
+            <Textarea id="message" placeholder="How can we help you?" className="col-span-3" />
+          </div>
+        </div>
+        <Button type="submit" variant="accent" className="w-full">Submit Request</Button>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function ConsultationDialogButton({className}: {className?: string}) {
+   return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="accent" className={className}>Request a Consultation</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Request a Consultation</DialogTitle>
+          <DialogDescription>
+            Fill out the form below and one of our experts will get back to you shortly.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input id="name" placeholder="John Doe" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              Email
+            </Label>
+            <Input id="email" type="email" placeholder="john.doe@example.com" className="col-span-3" />
+          </div>
+           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="message" className="text-right">
+              Message
+            </Label>
+            <Textarea id="message" placeholder="How can we help you?" className="col-span-3" />
+          </div>
+        </div>
+        <Button type="submit" variant="accent" className="w-full">Submit Request</Button>
+      </DialogContent>
+    </Dialog>
+   )
+}
+
+
 export default function Home() {
+
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-[100dvh] bg-background">
       <header className="px-4 lg:px-6 h-16 flex items-center sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b">
@@ -49,10 +163,10 @@ export default function Home() {
         </a>
         <h1 className="ml-4 font-headline text-xl font-bold">Enterprise Cloud Platform</h1>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Button variant="ghost">Products</Button>
-          <Button variant="ghost">Solutions</Button>
-          <Button variant="ghost">Pricing</Button>
-          <Button variant="accent">Request a Consultation</Button>
+          <Button variant="ghost" onClick={() => scrollTo('products')}>Products</Button>
+          <Button variant="ghost" onClick={() => scrollTo('solutions')}>Solutions</Button>
+          <Button variant="ghost" onClick={() => scrollTo('pricing')}>Pricing</Button>
+          <ConsultationDialogButton />
         </nav>
       </header>
       <main className="flex-1">
@@ -69,9 +183,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button size="lg" variant="accent">
-                    Request a Consultation
-                  </Button>
+                  <ConsultationDialog />
                   <Button size="lg" variant="outline">
                     Explore Documentation
                   </Button>
@@ -104,7 +216,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section id="products" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -126,13 +238,72 @@ export default function Home() {
                     <CardDescription className="text-center">{product.description}</CardDescription>
                   </CardContent>
                   <CardFooter className="justify-center">
-                    <Button variant="outline">{product.pricing}</Button>
+                    <Button variant="outline" onClick={() => scrollTo('pricing')}>{product.pricing}</Button>
                   </CardFooter>
                 </Card>
               ))}
             </div>
           </div>
         </section>
+
+        <section id="solutions" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Solutions</div>
+                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Tailored for Your Industry</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  We provide specialized cloud solutions to meet the unique challenges of your business.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-3 md:gap-12 lg:max-w-5xl mt-12">
+              {solutions.map((solution) => (
+                <Card key={solution.title} className="flex flex-col h-full text-center">
+                  <CardHeader className="items-center">
+                    {solution.icon}
+                    <CardTitle className="mt-4 font-headline">{solution.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>{solution.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+           <div className="container px-4 md:px-6">
+              <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                <div className="space-y-2">
+                    <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Pricing</div>
+                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">Transparent Pricing</h2>
+                    <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        Choose the plan that's right for you.
+                    </p>
+                </div>
+              </div>
+               <div className="mx-auto grid grid-cols-1 items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-4 mt-12">
+                {products.map((product) => (
+                  <Card key={product.title} className="flex flex-col h-full">
+                    <CardHeader>
+                      <CardTitle className="font-headline">{product.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <p className="text-4xl font-bold">{product.pricing.startsWith('Contact') ? 'Custom' : product.pricing.split('/')[0]}</p>
+                      <p className="text-sm text-muted-foreground">{product.pricing.startsWith('Contact') ? 'Contact us for a quote' : `/ ${product.pricing.split('/')[1]}`}</p>
+                      <p className="mt-4 text-sm">{product.description}</p>
+                    </CardContent>
+                    <CardFooter>
+                       <ConsultationDialogButton className="w-full" />
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </div>
+        </section>
+
 
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6">
@@ -159,9 +330,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
-               <Button size="lg" variant="accent" className="w-full">
-                Request a Consultation
-              </Button>
+               <ConsultationDialogButton className="w-full" />
             </div>
           </div>
         </section>
@@ -180,3 +349,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
